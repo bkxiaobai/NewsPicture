@@ -5,15 +5,18 @@ public class PhotoHolder {
 	private String title;
 	// 相片在服务器上的文件名
 	private String fileName;
+	//关键词
+	private String keyword;
 
 	// 无参数的构造器
 	public PhotoHolder() {
 	}
 
 	// 初始化全部属性的构造器
-	public PhotoHolder(String title, String fileName) {
+	public PhotoHolder(String title, String fileName, String keyword) {
 		this.title = title;
 		this.fileName = fileName;
+		this.keyword = keyword;
 	}
 
 	// title属性的setter和getter方法
@@ -32,5 +35,14 @@ public class PhotoHolder {
 
 	public String getFileName() {
 		return this.fileName;
+	}
+
+	// keyword属性的setter和getter方法
+	public String getKeyword() {
+		return this.keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 }

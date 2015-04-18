@@ -5,18 +5,22 @@ import java.util.List;
 
 import com.np.dao.PhotoDao;
 import com.np.dao.UserDao;
+import com.np.dao.AlbumDao;
 import com.np.exception.NException;
 import com.np.po.Photo;
 import com.np.po.User;
+import com.np.po.Album;
 import com.np.service.NService;
 import com.np.vo.PhotoHolder;
+import com.np.vo.AlbumHolder;
 
 public class NServiceimpl implements NService {
-	// 业务逻辑组件所依赖的2个DAO组件
+	// 业务逻辑组件所依赖的3个DAO组件
 	private UserDao ud = null;
 	private PhotoDao pd = null;
+	private AlbumDao ad = null;
 
-	// 依赖注入2个DAO组件所需的setter方法
+	// 依赖注入3个DAO组件所需的setter方法
 	public void setUserDao(UserDao ud) {
 		this.ud = ud;
 	}
@@ -25,6 +29,9 @@ public class NServiceimpl implements NService {
 		this.pd = pd;
 	}
 
+	public void setAlbumDao(AlbumDao ad) {
+		this.ad = ad;
+	}
 	/**
 	 * 验证用户登录是否成功。
 	 * 
@@ -51,9 +58,9 @@ public class NServiceimpl implements NService {
 	/**
 	 * 注册新用户
 	 * 
-	 * @param name
+	 * @param username
 	 *            新注册用户的用户名
-	 * @param pass
+	 * @param password
 	 *            新注册用户的密码
 	 * @return 新注册用户的主键
 	 */
@@ -81,14 +88,17 @@ public class NServiceimpl implements NService {
 	 *            添加相片的标题
 	 * @param fileName
 	 *            新增相片在服务器上的文件名
+	 * @param keyword
+	 *            添加相片的关键词
 	 * @return 新添加相片的主键
 	 */
-	public int addPhoto(String user, String title, String fileName) {
+	public int addPhoto(String user, String title, String fileName, String keyword) {
 		try {
 			// 创建一个新的Photo实例
 			Photo p = new Photo();
 			p.setTitle(title);
 			p.setFileName(fileName);
+			p.setKeyword(keyword);
 			p.setUser(ud.findByName(user));
 			// 持久化Photo实例
 			pd.save(p);
@@ -113,7 +123,7 @@ public class NServiceimpl implements NService {
 			List<Photo> pl = pd.findByUser(ud.findByName(user), pageNo);
 			List<PhotoHolder> result = new ArrayList<PhotoHolder>();
 			for (Photo p : pl) {
-				result.add(new PhotoHolder(p.getTitle(), p.getFileName()));
+				result.add(new PhotoHolder(p.getTitle(), p.getFileName(),p.getKeyword()));
 			}
 			return result;
 		} catch (Exception ex) {
@@ -123,9 +133,56 @@ public class NServiceimpl implements NService {
 	}
 
 	/**
+	 * 添加图集
+	 * 
+	 * @param user
+	 *            添加图集的用户
+	 * @param title
+	 *            添加图集的标题
+	 * @return 新添加图集的主键
+	 */
+	public int addAlbum(String user, String title) {
+		try {
+			// 创建一个新的Album实例
+			Album a = new Album();
+			a.setTitle(title);
+			a.setUser(ud.findByName(user));
+			// 持久化Album实例
+			ad.save(a);
+			return a.getId();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new NException("创建图集过程中出现异常！");
+		}
+	}
+
+	/**
+	 * 根据用户获得该用户的所有图集
+	 * 
+	 * @param user
+	 *            当前用户
+	 * @param pageNo
+	 *            页码
+	 * @return 返回属于该用户、指定页的相片
+	 */
+	public List<AlbumHolder> getAlbumByUser(String user, int pageNo) {
+		try {
+			List<Album> al = ad.findByUser(ud.findByName(user), pageNo);
+			List<AlbumHolder> result = new ArrayList<AlbumHolder>();
+			for (Album a : al) {
+				result.add(new AlbumHolder(a.getTitle()));
+			}
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new NException("查询图集列表的过程中出现异常！");
+		}
+	}
+	
+	/**
 	 * 验证用户名是否可用，即数据库里是否已经存在该用户名
 	 * 
-	 * @param name
+	 * @param username
 	 *            需要校验的用户名
 	 * @return 如果该用户名可用，返回true，否则返回false。
 	 */
