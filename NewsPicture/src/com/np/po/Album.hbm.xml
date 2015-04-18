@@ -6,17 +6,17 @@
 <hibernate-mapping package="com.np.po">
 	<!-- 每个class元素映射一个持久化类 -->
 	<class name="Album" table="album">
-		<id name="aid" type="int" column="aid">
+		<id name="id" type="int" column="id">
 			<!-- 指定主键生成器策略 -->
 			<generator class="identity"/>
 		</id>
 		<!-- 映射普通属性 -->
 		<property name="title" type="string"/>
 		<!-- 映射和User实体的N：1关联 -->
-		<many-to-one name="user" column="id"
+		<many-to-one name="user" column="user_id"
 			class="User" not-null="true"/>
 		<!-- 映射和Column实体的N：1关联 -->
-		<many-to-one name="column" column="cid"
+		<many-to-one name="column" column="column_id"
 			class="Column" not-null="true"/>
 	</class>
 </hibernate-mapping>
