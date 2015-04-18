@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="GBK"?>
 <!-- 指定Spring配置文件的Schema信息 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
@@ -11,102 +10,93 @@
 	http://www.springframework.org/schema/aop 
 	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
-	<!-- 定义数据源Bean，使用C3P0数据源实现 -->
-	<bean id="dataSource" destroy-method="close"
-		class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<!-- 指定连接数据库的驱动 -->
-		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+	<bean id="mysql"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		lazy-init="true">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- 指定连接数据库的URL -->
-		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost/newspicture"/>
+		<property name="url" value="jdbc:mysql://localhost/newspicture" />
 		<!-- 指定连接数据库的用户名 -->
-		<property name="user" value="root"/>
+		<property name="username" value="root" />
 		<!-- 指定连接数据库的密码 -->
-		<property name="password" value="921118"/>
-		<!-- 指定连接数据库连接池的最大连接数 -->
-		<property name="maxPoolSize" value="40"/>
-		<!-- 指定连接数据库连接池的最小连接数 -->
-		<property name="minPoolSize" value="1"/>
-		<!-- 指定连接数据库连接池的初始化连接数 -->
-		<property name="initialPoolSize" value="1"/>
-		<!-- 指定连接数据库连接池的连接的最大空闲时间 -->
-		<property name="maxIdleTime" value="20"/>
+		<property name="password" value="921118" />
 	</bean>
+
+	<bean id="h2"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		lazy-init="true">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url"
+			value="jdbc:h2:/Users/aaronike/workspace/github/test" />
+
+	</bean>
+
 
 	<!-- 定义Hibernate的SessionFactory -->
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<!-- 依赖注入数据源，注入上面定义的dataSource -->
-		<property name="dataSource" ref="dataSource"/>
+		<property name="dataSource" ref="h2" />
 		<!-- mappingResouces属性用来列出全部映射文件 -->
-		<property name="mappingResources">
-			<list>
-				<!-- 以下用来列出Hibernate映射文件 -->
-				<value>com/np/User.hbm.xml</value>
-				<value>com/np/Photo.hbm.xml</value>
-				<value>com/np/Column.hbm.xml</value>
-				<value>com/np/Album.hbm.xml</value>
-			</list>
-		</property>
+		<property name="packagesToScan" value="com.np.po" />
 		<!-- 定义Hibernate的SessionFactory的属性 -->
 		<property name="hibernateProperties">
 			<props>
 				<!-- 指定数据库方言 -->
-				<prop key="hibernate.dialect">
-					org.hibernate.dialect.MySQLInnoDBDialect</prop>
+				<!--prop key="hibernate.dialect"> org.hibernate.dialect.MySQLInnoDBDialect</prop -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 				<!-- 是否根据需要每次自动创建数据库 -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<!-- 显示Hibernate持久化操作所生成的SQL -->
 				<prop key="hibernate.show_sql">true</prop>
 				<!-- 将SQL脚本进行格式化后再输出 -->
 				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
 			</props>
 		</property>
 	</bean>
 	<!-- 配置UserDao组件 -->
-	<bean id="UserDao"
-		class="com.np.dao.impl.UserDaoimpl">
+	<bean id="UserDao" class="com.np.dao.impl.UserDaoimpl">
 		<!-- 注入SessionFactory引用 -->
-		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- 配置PhotoDao组件 -->
-	<bean id="PhotoDao"
-		class="com.np.dao.impl.PhotoDaoimpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
+	<bean id="PhotoDao" class="com.np.dao.impl.PhotoDaoimpl">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- 配置albumService业务逻辑组件 -->
-	<bean id="albumService"
+	<bean id="albumService" lazy-init="true"
 		class="com.np.service.impl.NServiceImpl">
 		<!-- 为业务逻辑组件注入3个DAO组件 -->
-		<property name="UserDao" ref="UserDao"/>
-		<property name="PhotoDao" ref="PhotoDao"/>
-		<property name="AlbumDao" ref="AlbumDao"/>
+		<property name="UserDao" ref="UserDao" />
+		<property name="PhotoDao" ref="PhotoDao" />
 	</bean>
 
 	<!-- 配置Hibernate的局部事务管理器，使用HibernateTransactionManager类 -->
-	<!-- 该类实现PlatformTransactionManager接口，是针对Hibernate的特定实现-->
-	<bean id="transactionManager" 
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<!-- 该类实现PlatformTransactionManager接口，是针对Hibernate的特定实现 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<!-- 配置HibernateTransactionManager时需要依注入SessionFactory的引用 -->
-		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<!-- 配置事务切面Bean,指定事务管理器 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<!-- 用于配置详细的事务语义 -->
 		<tx:attributes>
-			<!-- 所有以'get'开头的方法是read-only的 -->
-			<tx:method name="get*" read-only="true"/>
-			<!-- 其他方法使用默认的事务设置 -->
-			<tx:method name="*"/>
+			<tx:method name="get*" read-only="false" propagation="NOT_SUPPORTED"/>
+			<tx:method name="find*" read-only="false" propagation="NOT_SUPPORTED"/>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="*" propagation="REQUIRED" />  
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
 		<!-- 配置一个切入点，匹配lee包下所有以Impl结尾的类执行的所有方法 -->
-		<aop:pointcut id="leeService"
-			expression="execution(* com.np.service.impl.*Impl.*(..))"/>
+		<aop:pointcut id="dao"
+			expression="execution(* com.np.dao.*Dao.*(..))" />
 		<!-- 指定在leeService切入点应用txAdvice事务切面 -->
-		<aop:advisor advice-ref="txAdvice" 
-			pointcut-ref="leeService"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="dao" />
 	</aop:config>
 </beans>

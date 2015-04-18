@@ -78,7 +78,7 @@ public class ProUploadServlet extends BaseServlet {
 						}
 						input.close();
 						output.close();
-						as.addPhoto(user, title, serverFileName + appden, keyword);
+						//TODO as.addPhoto(user, title, serverFileName + appden, keyword);
 						response.sendRedirect("album.html?resultCode=0");
 					} else {
 						response.sendRedirect("album.html?resultCode=1");

@@ -1,6 +1,7 @@
 package com.np.dao.impl;
 
 import java.util.List;
+
 import com.np.dao.UserDao;
 import com.np.hql.NHibernateDaoSupport;
 import com.np.po.User;
@@ -66,7 +67,7 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	 */
 	@SuppressWarnings("unchecked")
 	public List<User> findAll() {
-		return (List<User>) getHibernateTemplate().find("from User");
+		return (List<User>) getHibernateTemplate().find("from user");
 	}
 
 	/**
@@ -79,7 +80,7 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	@SuppressWarnings("unchecked")
 	public User findByName(String username) {
 		List<User> users = (List<User>) getHibernateTemplate().find(
-				"from User u where u.name = ?", username);
+				"from user u where u.username = ?", username);
 		if (users != null && users.size() == 1) {
 			return users.get(0);
 		}

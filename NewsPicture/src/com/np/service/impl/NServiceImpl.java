@@ -14,7 +14,7 @@ import com.np.service.NService;
 import com.np.vo.PhotoHolder;
 import com.np.vo.AlbumHolder;
 
-public class NServiceimpl implements NService {
+public class NServiceImpl implements NService {
 	// 业务逻辑组件所依赖的3个DAO组件
 	private UserDao ud = null;
 	private PhotoDao pd = null;
@@ -45,7 +45,7 @@ public class NServiceimpl implements NService {
 		try {
 			// 使用UserDao根据用户名查询用户
 			User u = ud.findByName(username);
-			if (u != null && u.getPass().equals(password)) {
+			if (u != null && u.getPassword().equals(password)) {
 				return true;
 			}
 			return false;
@@ -68,8 +68,8 @@ public class NServiceimpl implements NService {
 		try {
 			// 创建一个新的User实例
 			User u = new User();
-			u.setName(username);
-			u.setPass(password);
+			u.setUsername(username);
+			u.setPassword(password);
 			// 持久化User对象
 			ud.save(u);
 			return u.getId();
