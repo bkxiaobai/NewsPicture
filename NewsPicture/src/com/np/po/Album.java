@@ -5,7 +5,7 @@ import com.np.po.Column;
 
 public class Album {
 	// 图集ID
-	private Integer aid;
+	private Integer id;
 	// 图集名称
 	private String title;
 	// 保存该图集所属的用户
@@ -18,20 +18,20 @@ public class Album {
 	}
 
 	// 初始化全部属性的构造器
-	public Album(Integer aid, String title, User user,Column column) {
-		this.aid = aid;
+	public Album(Integer id, String title, User user,Column column) {
+		this.id = id;
 		this.title = title;
 		this.user = user;
 		this.column = column;
 	}
 
 	// id属性的setter和getter方法
-	public void setId(Integer aid) {
-		this.aid = aid;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {
-		return this.aid;
+		return this.id;
 	}
 
 	// title属性的setter和getter方法

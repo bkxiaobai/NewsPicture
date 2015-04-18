@@ -5,7 +5,7 @@ import com.np.po.Album;
 
 public class Photo {
 	// 图片ID
-	private Integer pid;
+	private Integer id;
 	// 该图片的名称
 	private String title;
 	// 图片在服务器上的文件名
@@ -22,8 +22,8 @@ public class Photo {
 	}
 
 	// 初始化全部属性的构造器
-	public Photo(Integer pid, String title, String fileName,String keyword, User user,Album album) {
-		this.pid = pid;
+	public Photo(Integer id, String title, String fileName,String keyword, User user,Album album) {
+		this.id = id;
 		this.title = title;
 		this.fileName = fileName;
 		this.keyword = keyword;
@@ -32,12 +32,12 @@ public class Photo {
 	}
 
 	// id属性的setter和getter方法
-	public void setId(Integer pid) {
-		this.pid = pid;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {
-		return this.pid;
+		return this.id;
 	}
 
 	// title属性的setter和getter方法

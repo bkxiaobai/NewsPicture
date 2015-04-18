@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 public class Column {
 	// 栏目ID
-	private Integer cid;
+	private Integer id;
 	// 栏目名
 	private String title;
 	// 使用Set保存该栏目关联的图集
@@ -17,18 +17,18 @@ public class Column {
 	}
 
 	// 初始化全部属性的构造器
-	public Column(Integer cid, String title) {
-		this.cid = cid;
+	public Column(Integer id, String title) {
+		this.id = id;
 		this.title = title;
 	}
 
 	// id属性的setter和getter方法
-	public void setId(Integer cid) {
-		this.cid = cid;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {
-		return this.cid;
+		return this.id;
 	}
 
 	// title属性的setter和getter方法
