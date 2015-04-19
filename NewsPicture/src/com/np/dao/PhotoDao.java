@@ -30,5 +30,12 @@ public interface PhotoDao {
 
    //查询属于指定用户的相片，且进行分页控制，user:查询相片所属的用户,pageNo需要查询的指定页,return查询到的相片
 	List<Photo> findByUser(User user, int pageNo);
+	
+	//根据相片名称查找
+	Photo findByTitle(String title);
+	
+	//根据相片关键词查找
+	Photo findByKeyword(String keyword);
+	
 }
 

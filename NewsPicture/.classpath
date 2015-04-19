@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="lib" path="E:/SSH/junit-4.11.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_6_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.lib.hibernate41.MYECLIPSE_HIBERNATE_4_1_CORE"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mysql-connector-java-5.1.26-bin.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-aop-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-beans-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-context-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-core-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-expression-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-jdbc-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-orm-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-orm-4.1.6.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-test-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-test-4.1.6.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-tx-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/spring/spring-web-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="lib" path="E:/SSH/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="E:/SSH/aspectjweaver-1.5.4.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -11,7 +11,7 @@ public interface AlbumDao {
 	final int PAGE_SIZE = 8;
 
 	//根据id加载album实例
-	Album get(Integer aid);
+	Album get(Integer id);
 
 	//持久化album实例
 	Integer save(Album album);
@@ -23,7 +23,7 @@ public interface AlbumDao {
 	void delete(Album album);
 
 	//根据id删除album实例
-	void delete(Integer aid);
+	void delete(Integer id);
 
 	//查询全部的photo实例
 	List<Album> findAll();

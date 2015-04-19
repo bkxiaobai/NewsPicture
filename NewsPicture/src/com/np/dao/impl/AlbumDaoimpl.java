@@ -11,12 +11,12 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	/**
 	 * 根据标识属性来加载Album实例
 	 * 
-	 * @param aid
+	 * @param id
 	 *            需要加载的Album实例的标识属性值
 	 * @return 指定标识属性对应的Album实例
 	 */
-	public Album get(Integer aid) {
-		return (Album) getHibernateTemplate().get(Album.class, aid);
+	public Album get(Integer id) {
+		return (Album) getHibernateTemplate().get(Album.class, id);
 	}
 
 	/**
@@ -56,8 +56,8 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 * @param id
 	 *            需要被删除的Album实例的标识属性值
 	 */
-	public void delete(Integer aid) {
-		getHibernateTemplate().delete(get(aid));
+	public void delete(Integer id) {
+		getHibernateTemplate().delete(get(id));
 	}
 
 	/**

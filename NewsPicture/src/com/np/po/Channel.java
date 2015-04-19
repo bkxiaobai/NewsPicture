@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 
-public class Column {
+public class Channel {
 	// 栏目ID
 	private Integer id;
 	// 栏目名
@@ -13,11 +13,11 @@ public class Column {
 	private Set<Album> albums = new HashSet<Album>();
 
 	// 无参数的构造器
-	public Column() {
+	public Channel() {
 	}
 
 	// 初始化全部属性的构造器
-	public Column(Integer id, String title) {
+	public Channel(Integer id, String title) {
 		this.id = id;
 		this.title = title;
 	}

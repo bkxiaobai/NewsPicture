@@ -18,7 +18,7 @@ public class User {
     @Column(length=255, nullable=false)  
 	private String password;
 
-
+    
 	// id属性的setter和getter方法
 	public void setId(Integer id) {
 		this.id = id;
@@ -36,7 +36,8 @@ public class User {
 	public String getUserame() {
 		return this.username;
 	}
-
+	
+	// pass属性的setter和getter方法
 	public String getPassword() {
 		return password;
 	}

@@ -24,7 +24,7 @@ import com.np.po.User;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:applicationContext.xml"})
 public class FirstTest {
-    private static UserDao dao;
+   private static UserDao dao;
     
     @Autowired
     ApplicationContext ctx;
@@ -48,8 +48,8 @@ public class FirstTest {
 	public void testCreate() {
 		User user = new User();
 		Date date = new Date();
-		user.setUsername("test");
-		user.setPassword("mypass");
+		user.setUsername("usertest");
+		user.setPassword("456");
 		getDao().save(user);
 		System.out.println("create");
 
@@ -57,11 +57,18 @@ public class FirstTest {
 	
 	@Test
 	public void testDelete() {
-		User user = getDao().findByName("test");
+		
+		User user = getDao().findByName("users-test");
 		Assert.assertNotNull(user);
-		getDao().delete(user);
+		//getDao().delete(user);
 	}
 	
+	@Test
+	public void testupdate() {
+		User user = getDao().findByName("user-test");
+		user.setPassword("123");
+		//getDao().update(user);
+	}
 	
 	@BeforeClass
 	public static void before() {

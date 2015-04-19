@@ -15,28 +15,18 @@
 		lazy-init="true">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- 指定连接数据库的URL -->
-		<property name="url" value="jdbc:mysql://localhost/newspicture" />
+		<property name="url" value="jdbc:mysql://localhost/test" />
 		<!-- 指定连接数据库的用户名 -->
 		<property name="username" value="root" />
 		<!-- 指定连接数据库的密码 -->
 		<property name="password" value="921118" />
 	</bean>
 
-	<bean id="h2"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-		lazy-init="true">
-		<property name="driverClassName" value="org.h2.Driver" />
-		<property name="url"
-			value="jdbc:h2:/Users/aaronike/workspace/github/test" />
-
-	</bean>
-
-
 	<!-- 定义Hibernate的SessionFactory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<!-- 依赖注入数据源，注入上面定义的dataSource -->
-		<property name="dataSource" ref="h2" />
+		<property name="dataSource" ref="mysql" />
 		<!-- mappingResouces属性用来列出全部映射文件 -->
 		<property name="packagesToScan" value="com.np.po" />
 		<!-- 定义Hibernate的SessionFactory的属性 -->
@@ -44,7 +34,8 @@
 			<props>
 				<!-- 指定数据库方言 -->
 				<!--prop key="hibernate.dialect"> org.hibernate.dialect.MySQLInnoDBDialect</prop -->
-				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>
+				<prop key="javax.persistence.validation.mode">none</prop>
 				<!-- 是否根据需要每次自动创建数据库 -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<!-- 显示Hibernate持久化操作所生成的SQL -->
