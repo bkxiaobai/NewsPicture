@@ -1,7 +1,7 @@
 package com.np.po;
 
 import com.np.po.User;
-import com.np.po.Column;
+import com.np.po.Channel;
 
 public class Album {
 	// 图集ID
@@ -11,18 +11,18 @@ public class Album {
 	// 保存该图集所属的用户
 	private User user;
 	// 保存该图集所属的栏目
-	private Column column;
+	private Channel channel;
 
 	// 无参数的构造器
 	public Album() {
 	}
 
 	// 初始化全部属性的构造器
-	public Album(Integer id, String title, User user,Column column) {
+	public Album(Integer id, String title, User user,Channel channel) {
 		this.id = id;
 		this.title = title;
 		this.user = user;
-		this.column = column;
+		this.channel = channel;
 	}
 
 	// id属性的setter和getter方法
@@ -53,11 +53,11 @@ public class Album {
 	}
 
 	// column属性的setter和getter方法
-	public Column getColumn() {
-		return this.column;
+	public Channel getChannel() {
+		return this.channel;
 	}
 
-	public void setColumn(Column column) {
-		this.column = column;
+	public void setChannel(Channel channel) {
+		this.channel = channel;
 	}
 }

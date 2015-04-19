@@ -15,8 +15,8 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	 *            需要加载的Photo实例的标识属性值
 	 * @return 指定标识属性对应的Photo实例
 	 */
-	public Photo get(Integer pid) {
-		return (Photo) getHibernateTemplate().get(Photo.class, pid);
+	public Photo get(Integer id) {
+		return (Photo) getHibernateTemplate().get(Photo.class, id);
 	}
 
 	/**
@@ -56,8 +56,8 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	 * @param id
 	 *            需要被删除的Photo实例的标识属性值
 	 */
-	public void delete(Integer pid) {
-		getHibernateTemplate().delete(get(pid));
+	public void delete(Integer id) {
+		getHibernateTemplate().delete(get(id));
 	}
 
 	/**
@@ -85,5 +85,23 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 		// 返回分页查询的结果
 		return (List<Photo>) findByPage("from Photo b where b.user = ?", user,
 				offset, PAGE_SIZE);
+	}
+
+	public Photo findByTitle(String title) {
+		List<Photo> photos = (List<Photo>) getHibernateTemplate().find(
+				"from photo p where p.title = ?", title);
+		if (photos != null && photos.size() == 1) {
+			return photos.get(0);
+		}
+		return null;
+	}
+	
+	public Photo findByKeyword(String keyword) {
+		List<Photo> photos = (List<Photo>) getHibernateTemplate().find(
+				"from photo p where p.keyword = ?", keyword);
+		if (photos != null ) {
+			return photos.get(0);
+		}
+		return null;
 	}
 }
