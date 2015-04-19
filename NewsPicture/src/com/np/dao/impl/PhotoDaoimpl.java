@@ -1,6 +1,7 @@
 package com.np.dao.impl;
 
 import java.util.List;
+
 import com.np.dao.PhotoDao;
 import com.np.hql.NHibernateDaoSupport;
 import com.np.po.Photo;
@@ -88,6 +89,7 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	}
 
 	public Photo findByTitle(String title) {
+		@SuppressWarnings("unchecked")
 		List<Photo> photos = (List<Photo>) getHibernateTemplate().find(
 				"from photo p where p.title = ?", title);
 		if (photos != null && photos.size() == 1) {
@@ -97,6 +99,7 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	}
 	
 	public Photo findByKeyword(String keyword) {
+		@SuppressWarnings("unchecked")
 		List<Photo> photos = (List<Photo>) getHibernateTemplate().find(
 				"from photo p where p.keyword = ?", keyword);
 		if (photos != null ) {

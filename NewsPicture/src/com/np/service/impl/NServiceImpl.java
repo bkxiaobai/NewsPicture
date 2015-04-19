@@ -3,35 +3,50 @@ package com.np.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.np.dao.AlbumDao;
+import com.np.dao.ChannelDao;
 import com.np.dao.PhotoDao;
 import com.np.dao.UserDao;
-import com.np.dao.AlbumDao;
 import com.np.exception.NException;
+import com.np.po.Album;
 import com.np.po.Photo;
 import com.np.po.User;
-import com.np.po.Album;
 import com.np.service.NService;
-import com.np.vo.PhotoHolder;
 import com.np.vo.AlbumHolder;
+import com.np.vo.PhotoHolder;
 
 public class NServiceImpl implements NService {
 	// 业务逻辑组件所依赖的3个DAO组件
-	private UserDao ud = null;
-	private PhotoDao pd = null;
-	private AlbumDao ad = null;
+
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private PhotoDao photoDao;
+	@Autowired
+	private AlbumDao albumDao;
+	@Autowired
+	private ChannelDao channelDao;
+
+
+	public void setChannelDao(ChannelDao channelDao) {
+		this.channelDao = channelDao;
+	}
 
 	// 依赖注入3个DAO组件所需的setter方法
 	public void setUserDao(UserDao ud) {
-		this.ud = ud;
+		this.userDao = ud;
 	}
 
 	public void setPhotoDao(PhotoDao pd) {
-		this.pd = pd;
+		this.photoDao = pd;
 	}
 
 	public void setAlbumDao(AlbumDao ad) {
-		this.ad = ad;
+		this.albumDao = ad;
 	}
+
 	/**
 	 * 验证用户登录是否成功。
 	 * 
@@ -44,7 +59,7 @@ public class NServiceImpl implements NService {
 	public boolean userLogin(String username, String password) {
 		try {
 			// 使用UserDao根据用户名查询用户
-			User u = ud.findByName(username);
+			User u = userDao.findByName(username);
 			if (u != null && u.getPassword().equals(password)) {
 				return true;
 			}
@@ -71,7 +86,7 @@ public class NServiceImpl implements NService {
 			u.setUsername(username);
 			u.setPassword(password);
 			// 持久化User对象
-			ud.save(u);
+			userDao.save(u);
 			return u.getId();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -92,16 +107,17 @@ public class NServiceImpl implements NService {
 	 *            添加相片的关键词
 	 * @return 新添加相片的主键
 	 */
-	public int addPhoto(String user, String title, String fileName, String keyword) {
+	public int addPhoto(String user, String title, String fileName,
+			String keyword) {
 		try {
 			// 创建一个新的Photo实例
 			Photo p = new Photo();
 			p.setTitle(title);
 			p.setFileName(fileName);
 			p.setKeyword(keyword);
-			p.setUser(ud.findByName(user));
+			p.setUser(userDao.findByName(user));
 			// 持久化Photo实例
-			pd.save(p);
+			photoDao.save(p);
 			return p.getId();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -120,10 +136,12 @@ public class NServiceImpl implements NService {
 	 */
 	public List<PhotoHolder> getPhotoByUser(String user, int pageNo) {
 		try {
-			List<Photo> pl = pd.findByUser(ud.findByName(user), pageNo);
+			List<Photo> pl = photoDao.findByUser(userDao.findByName(user),
+					pageNo);
 			List<PhotoHolder> result = new ArrayList<PhotoHolder>();
 			for (Photo p : pl) {
-				result.add(new PhotoHolder(p.getTitle(), p.getFileName(),p.getKeyword()));
+				result.add(new PhotoHolder(p.getTitle(), p.getFileName(), p
+						.getKeyword()));
 			}
 			return result;
 		} catch (Exception ex) {
@@ -146,9 +164,9 @@ public class NServiceImpl implements NService {
 			// 创建一个新的Album实例
 			Album a = new Album();
 			a.setTitle(title);
-			a.setUser(ud.findByName(user));
+			a.setUser(userDao.findByName(user));
 			// 持久化Album实例
-			ad.save(a);
+			albumDao.save(a);
 			return a.getId();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -167,7 +185,8 @@ public class NServiceImpl implements NService {
 	 */
 	public List<AlbumHolder> getAlbumByUser(String user, int pageNo) {
 		try {
-			List<Album> al = ad.findByUser(ud.findByName(user), pageNo);
+			List<Album> al = albumDao.findByUser(userDao.findByName(user),
+					pageNo);
 			List<AlbumHolder> result = new ArrayList<AlbumHolder>();
 			for (Album a : al) {
 				result.add(new AlbumHolder(a.getTitle()));
@@ -178,7 +197,7 @@ public class NServiceImpl implements NService {
 			throw new NException("查询图集列表的过程中出现异常！");
 		}
 	}
-	
+
 	/**
 	 * 验证用户名是否可用，即数据库里是否已经存在该用户名
 	 * 
@@ -189,7 +208,7 @@ public class NServiceImpl implements NService {
 	public boolean validateName(String username) {
 		try {
 			// 根据用户名查询对应的User实例
-			User u = ud.findByName(username);
+			User u = userDao.findByName(username);
 			if (u != null) {
 				return false;
 			}

@@ -21,8 +21,7 @@ public class NHibernateDaoSupport extends HibernateDaoSupport {
 	 * @return 当前页的所有记录
 	 */
 	public List<?> findByPage(final String hql, final int offset,final int pageSize) {
-		@SuppressWarnings("unchecked")
-		List<?> list = getHibernateTemplate().execute(new HibernateCallback() {
+		List<?> list = (List<?>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			public Object doInHibernate(Session session)
 					throws HibernateException {
 				List<?> result = session.createQuery(hql).setFirstResult(offset)
@@ -47,8 +46,7 @@ public class NHibernateDaoSupport extends HibernateDaoSupport {
 	 * @return 当前页的所有记录
 	 */
 	public List<?> findByPage(final String hql, final Object value,final int offset, final int pageSize) {
-		@SuppressWarnings("unchecked")
-		List<?> list = getHibernateTemplate().execute(new HibernateCallback() {
+		List<?> list = (List<?>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			public Object doInHibernate(Session session)
 					throws HibernateException {
 				List<?> result = session.createQuery(hql).setParameter(0, value)
@@ -73,8 +71,7 @@ public class NHibernateDaoSupport extends HibernateDaoSupport {
 	 * @return 当前页的所有记录
 	 */
 	public List<?> findByPage(final String hql, final Object[] values,final int offset, final int pageSize) {
-		@SuppressWarnings("unchecked")
-		List<?> list = getHibernateTemplate().execute(new HibernateCallback() {
+		List<?> list = (List<?>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
 			public Object doInHibernate(Session session)
 					throws HibernateException {
 				Query query = session.createQuery(hql);

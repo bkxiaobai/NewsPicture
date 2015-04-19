@@ -1,16 +1,20 @@
 package com.np.po;
 
-import java.util.Set;
-import java.util.HashSet;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-
+@Entity(name = "channel")
 public class Channel {
 	// 栏目ID
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	// 栏目名
+	@Column(length = 255, nullable = false)
 	private String title;
-	// 使用Set保存该栏目关联的图集
-	private Set<Album> albums = new HashSet<Album>();
 
 	// 无参数的构造器
 	public Channel() {
@@ -39,13 +43,5 @@ public class Channel {
 	public String getTitle() {
 		return this.title;
 	}
-	
-	// albums属性的setter和getter方法
-	public Set<Album> getAlbums() {
-		return this.albums;
-	}
 
-	public void setAlbums(Set<Album> albums) {
-		this.albums = albums;
-	}
 }
