@@ -14,6 +14,7 @@ public class ShowImgServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 1460203270448078666L;
 
+	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String img = request.getParameter("img");

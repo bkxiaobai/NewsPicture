@@ -15,6 +15,7 @@ public class ProRegistServlet extends BaseServlet {
 
 	private static final long serialVersionUID = -3174994243043815566L;
 
+	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String username = request.getParameter("username");

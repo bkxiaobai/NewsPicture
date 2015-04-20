@@ -55,12 +55,22 @@
 	<bean id="PhotoDao" class="com.np.dao.impl.PhotoDaoimpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<!-- 配置albumService业务逻辑组件 -->
-	<bean id="albumService" lazy-init="true"
+	<!-- 配置AlbumDao组件 -->
+	<bean id="AlbumDao" class="com.np.dao.impl.AlbumDaoimpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 配置ChannelDao组件 -->
+	<bean id="ChannelDao" class="com.np.dao.impl.ChannelDaoimpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 配置NService业务逻辑组件 -->
+	<bean id="NService" lazy-init="true"
 		class="com.np.service.impl.NServiceImpl">
-		<!-- 为业务逻辑组件注入3个DAO组件 -->
+		<!-- 为业务逻辑组件注入4个DAO组件 -->
 		<property name="UserDao" ref="UserDao" />
 		<property name="PhotoDao" ref="PhotoDao" />
+		<property name="AlbumDao" ref="AlbumDao" />
+		<property name="ChannelDao" ref="ChannelDao" />
 	</bean>
 
 	<!-- 配置Hibernate的局部事务管理器，使用HibernateTransactionManager类 -->

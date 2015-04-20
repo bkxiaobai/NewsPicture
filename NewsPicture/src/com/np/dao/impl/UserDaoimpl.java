@@ -15,8 +15,9 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	 *            需要加载的User实例的标识属性值
 	 * @return 指定标识属性对应的User实例
 	 */
+	@Override
 	public User get(Integer id) {
-		return (User) getHibernateTemplate().get(User.class, id);
+		return getHibernateTemplate().get(User.class, id);
 	}
 
 	/**
@@ -26,6 +27,7 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	 *            需要被持久化的User实例
 	 * @return User实例被持久化后的标识属性值
 	 */
+	@Override
 	public Integer save(User user) {
 		return (Integer) getHibernateTemplate().save(user);
 	}
@@ -36,6 +38,7 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	 * @param user
 	 *            需要被修改的User实例
 	 */
+	@Override
 	public void update(User user) {
 		getHibernateTemplate().update(user);
 	}
@@ -46,6 +49,7 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	 * @param user
 	 *            需要被删除的User实例
 	 */
+	@Override
 	public void delete(User user) {
 		getHibernateTemplate().delete(user);
 	}
@@ -56,6 +60,7 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	 * @param id
 	 *            需要被删除的User实例的标识属性值
 	 */
+	@Override
 	public void delete(Integer id) {
 		getHibernateTemplate().delete(get(id));
 	}
@@ -65,6 +70,7 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	 * 
 	 * @return 数据库中全部的User实例
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<User> findAll() {
 		return (List<User>) getHibernateTemplate().find("from user");
@@ -77,6 +83,7 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	 *            需要查找的用户的用户名
 	 * @return 查找到的用户
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public User findByName(String username) {
 		List<User> users = (List<User>) getHibernateTemplate().find(

@@ -25,7 +25,7 @@ public class UserTest {
 
 		List<User> users = userDao.findAll();
 		for (User user : users) {
-			System.out.println(user.getUserame());
+			System.out.println(user.getUsername());
 		}
 		System.out.println("haaa");
 
@@ -44,7 +44,7 @@ public class UserTest {
 
 	@Test
 	public void testupdate() {
-		User user = userDao.findByName("user-test");
+		User user = userDao.findByName("usertest");
 		user.setPassword("123");
 		userDao.update(user);
 	}

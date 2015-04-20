@@ -14,6 +14,7 @@ public class PageLoadServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 7512001492425261841L;
 
+	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		response.setContentType("text/javascript;charset=GBK");

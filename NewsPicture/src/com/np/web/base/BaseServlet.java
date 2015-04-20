@@ -16,6 +16,7 @@ public class BaseServlet extends HttpServlet {
 	protected NService as;
 
 	// 定义构造器，获得Spring容器的引用
+	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		ApplicationContext ctx = WebApplicationContextUtils

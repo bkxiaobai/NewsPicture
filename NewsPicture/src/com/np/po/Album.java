@@ -1,5 +1,6 @@
 package com.np.po;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,6 +29,7 @@ public class Album {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "channel_id", nullable = false)
 	private Channel channel;
+
 
 	// 无参数的构造器
 	public Album() {

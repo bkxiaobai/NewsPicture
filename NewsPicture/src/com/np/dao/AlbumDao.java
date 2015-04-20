@@ -1,6 +1,7 @@
 package com.np.dao;
 
 import java.util.List;
+
 import com.np.po.Album;
 import com.np.po.User;
 
@@ -22,12 +23,11 @@ public interface AlbumDao {
 	//删除指定的album实例
 	void delete(Album album);
 
-	//根据id删除album实例
-	void delete(Integer id);
-
-	//查询全部的photo实例
+	//查询全部的album实例
 	List<Album> findAll();
 
    //查询属于指定用户的图集，且进行分页控制，user:查询图集所属的用户,pageNo需要查询的指定页,return查询到的图集
 	List<Album> findByUser(User user, int pageNo);
+	
+	List<Album> findByChannel(int channel_id);
 }

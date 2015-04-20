@@ -16,8 +16,9 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	 *            需要加载的Photo实例的标识属性值
 	 * @return 指定标识属性对应的Photo实例
 	 */
+	@Override
 	public Photo get(Integer id) {
-		return (Photo) getHibernateTemplate().get(Photo.class, id);
+		return getHibernateTemplate().get(Photo.class, id);
 	}
 
 	/**
@@ -27,6 +28,7 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	 *            需要被持久化的Photo实例
 	 * @return Photo实例被持久化后的标识属性值
 	 */
+	@Override
 	public Integer save(Photo photo) {
 		return (Integer) getHibernateTemplate().save(photo);
 	}
@@ -37,6 +39,7 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	 * @param photo
 	 *            需要被修改的Photo实例
 	 */
+	@Override
 	public void update(Photo photo) {
 		getHibernateTemplate().update(photo);
 	}
@@ -47,28 +50,21 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	 * @param photo
 	 *            需要被删除的Photo实例
 	 */
+	@Override
 	public void delete(Photo photo) {
 		getHibernateTemplate().delete(photo);
 	}
 
-	/**
-	 * 根据标识属性删除Photo实例
-	 * 
-	 * @param id
-	 *            需要被删除的Photo实例的标识属性值
-	 */
-	public void delete(Integer id) {
-		getHibernateTemplate().delete(get(id));
-	}
 
 	/**
 	 * 查询全部的Photo实例
 	 * 
 	 * @return 数据库中全部的Photo实例
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Photo> findAll() {
-		return (List<Photo>) getHibernateTemplate().find("from Photo");
+		return (List<Photo>) getHibernateTemplate().find("from photo");
 	}
 
 	/**
@@ -80,14 +76,21 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	 *            需要查询的指定页
 	 * @return 查询到的相片
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Photo> findByUser(User user, int pageNo) {
 		int offset = (pageNo - 1) * PAGE_SIZE;
 		// 返回分页查询的结果
-		return (List<Photo>) findByPage("from Photo b where b.user = ?", user,
+		return (List<Photo>) findByPage("from photo p where p.user = ?", user,
 				offset, PAGE_SIZE);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Photo> findByAlbum(int album_id) {
+		return (List<Photo>) getHibernateTemplate().find("from photo where album_id = ?",album_id);
+	}
+	
+	@Override
 	public Photo findByTitle(String title) {
 		@SuppressWarnings("unchecked")
 		List<Photo> photos = (List<Photo>) getHibernateTemplate().find(
@@ -98,6 +101,7 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 		return null;
 	}
 	
+	@Override
 	public Photo findByKeyword(String keyword) {
 		@SuppressWarnings("unchecked")
 		List<Photo> photos = (List<Photo>) getHibernateTemplate().find(

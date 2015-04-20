@@ -14,6 +14,7 @@ public class ValidateNameServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 9038839276327742641L;
 
+	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String username = request.getParameter("username");

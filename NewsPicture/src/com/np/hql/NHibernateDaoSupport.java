@@ -22,6 +22,7 @@ public class NHibernateDaoSupport extends HibernateDaoSupport {
 	 */
 	public List<?> findByPage(final String hql, final int offset,final int pageSize) {
 		List<?> list = (List<?>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException {
 				List<?> result = session.createQuery(hql).setFirstResult(offset)
@@ -47,6 +48,7 @@ public class NHibernateDaoSupport extends HibernateDaoSupport {
 	 */
 	public List<?> findByPage(final String hql, final Object value,final int offset, final int pageSize) {
 		List<?> list = (List<?>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException {
 				List<?> result = session.createQuery(hql).setParameter(0, value)
@@ -72,6 +74,7 @@ public class NHibernateDaoSupport extends HibernateDaoSupport {
 	 */
 	public List<?> findByPage(final String hql, final Object[] values,final int offset, final int pageSize) {
 		List<?> list = (List<?>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException {
 				Query query = session.createQuery(hql);

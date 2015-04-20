@@ -1,6 +1,7 @@
 package com.np.dao.impl;
 
 import java.util.List;
+
 import com.np.dao.AlbumDao;
 import com.np.hql.NHibernateDaoSupport;
 import com.np.po.Album;
@@ -15,8 +16,9 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 *            需要加载的Album实例的标识属性值
 	 * @return 指定标识属性对应的Album实例
 	 */
+	@Override
 	public Album get(Integer id) {
-		return (Album) getHibernateTemplate().get(Album.class, id);
+		return getHibernateTemplate().get(Album.class, id);
 	}
 
 	/**
@@ -26,6 +28,7 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 *            需要被持久化的Album实例
 	 * @return Album实例被持久化后的标识属性值
 	 */
+	@Override
 	public Integer save(Album album) {
 		return (Integer) getHibernateTemplate().save(album);
 	}
@@ -36,6 +39,7 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 * @param album
 	 *            需要被修改的Album实例
 	 */
+	@Override
 	public void update(Album album) {
 		getHibernateTemplate().update(album);
 	}
@@ -46,18 +50,9 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 * @param album
 	 *            需要被删除的Album实例
 	 */
+	@Override
 	public void delete(Album album) {
 		getHibernateTemplate().delete(album);
-	}
-
-	/**
-	 * 根据标识属性删除Album实例
-	 * 
-	 * @param id
-	 *            需要被删除的Album实例的标识属性值
-	 */
-	public void delete(Integer id) {
-		getHibernateTemplate().delete(get(id));
 	}
 
 	/**
@@ -65,9 +60,10 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 * 
 	 * @return 数据库中全部的Album实例
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Album> findAll() {
-		return (List<Album>) getHibernateTemplate().find("from Album");
+		return (List<Album>) getHibernateTemplate().find("from album");
 	}
 
 	/**
@@ -79,11 +75,19 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 *            需要查询的指定页
 	 * @return 查询到的图集
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Album> findByUser(User user, int pageNo) {
 		int offset = (pageNo - 1) * PAGE_SIZE;
 		// 返回分页查询的结果
-		return (List<Album>) findByPage("from Album b where b.user = ?", user,
+		return (List<Album>) findByPage("from album b where b.user = ?", user,
 				offset, PAGE_SIZE);
-	}
 }
+	
+	@SuppressWarnings("unchecked")
+	public List<Album> findByChannel(int channel_id) {
+		return (List<Album>) getHibernateTemplate().find("from album where channel_id = ?",channel_id);
+	}
+	
+}
+

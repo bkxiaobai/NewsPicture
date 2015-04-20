@@ -13,7 +13,7 @@ public class Channel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	// 栏目名
-	@Column(length = 255, nullable = false)
+	@Column(length = 255, unique=true, nullable = false)
 	private String title;
 
 	// 无参数的构造器

@@ -31,10 +31,21 @@ public class Photo {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
+	// user属性的setter和getter方法
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+	
+	//保存该图片所属的图集
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "album_id", nullable = false)
 	private Album album;
-
+	
+	//album属性的setter和getter方法
 	public Album getAlbum() {
 		return album;
 	}
@@ -58,7 +69,7 @@ public class Photo {
 		// this.album =album;
 	}
 
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -94,13 +105,6 @@ public class Photo {
 		this.keyword = keyword;
 	}
 
-	// user属性的setter和getter方法
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
+	
 
 }

@@ -1,6 +1,8 @@
 package com.np.dao;
 
 import java.util.List;
+
+
 import com.np.po.Photo;
 import com.np.po.User;
 
@@ -22,11 +24,11 @@ public interface PhotoDao {
 	//删除指定的photo实例
 	void delete(Photo photo);
 
-	//根据id删除photo实例
-	void delete(Integer id);
-
 	//查询全部的photo实例
 	List<Photo> findAll();
+	
+	//查询属于指定图集的相片，分页控制album:查询相片所属图集，pageNo需要查询的指定页，
+	List<Photo> findByAlbum(int album_id);
 
    //查询属于指定用户的相片，且进行分页控制，user:查询相片所属的用户,pageNo需要查询的指定页,return查询到的相片
 	List<Photo> findByUser(User user, int pageNo);

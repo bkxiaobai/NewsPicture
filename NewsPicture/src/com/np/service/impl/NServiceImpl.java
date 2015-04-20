@@ -56,6 +56,7 @@ public class NServiceImpl implements NService {
 	 *            登录的密码
 	 * @return 用户登录的结果，成功返回true，否则返回false
 	 */
+	@Override
 	public boolean userLogin(String username, String password) {
 		try {
 			// 使用UserDao根据用户名查询用户
@@ -79,6 +80,7 @@ public class NServiceImpl implements NService {
 	 *            新注册用户的密码
 	 * @return 新注册用户的主键
 	 */
+	@Override
 	public int registUser(String username, String password) {
 		try {
 			// 创建一个新的User实例
@@ -107,6 +109,7 @@ public class NServiceImpl implements NService {
 	 *            添加相片的关键词
 	 * @return 新添加相片的主键
 	 */
+	@Override
 	public int addPhoto(String user, String title, String fileName,
 			String keyword) {
 		try {
@@ -134,6 +137,7 @@ public class NServiceImpl implements NService {
 	 *            页码
 	 * @return 返回属于该用户、指定页的相片
 	 */
+	@Override
 	public List<PhotoHolder> getPhotoByUser(String user, int pageNo) {
 		try {
 			List<Photo> pl = photoDao.findByUser(userDao.findByName(user),
@@ -159,6 +163,7 @@ public class NServiceImpl implements NService {
 	 *            添加图集的标题
 	 * @return 新添加图集的主键
 	 */
+	@Override
 	public int addAlbum(String user, String title) {
 		try {
 			// 创建一个新的Album实例
@@ -183,6 +188,7 @@ public class NServiceImpl implements NService {
 	 *            页码
 	 * @return 返回属于该用户、指定页的相片
 	 */
+	@Override
 	public List<AlbumHolder> getAlbumByUser(String user, int pageNo) {
 		try {
 			List<Album> al = albumDao.findByUser(userDao.findByName(user),
@@ -205,6 +211,7 @@ public class NServiceImpl implements NService {
 	 *            需要校验的用户名
 	 * @return 如果该用户名可用，返回true，否则返回false。
 	 */
+	@Override
 	public boolean validateName(String username) {
 		try {
 			// 根据用户名查询对应的User实例

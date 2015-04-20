@@ -2,6 +2,7 @@ package com.np.dao;
 
 import com.np.po.Channel;
 
+
 //ChannelDao接口
 public interface ChannelDao {
 
@@ -19,5 +20,7 @@ public interface ChannelDao {
 
 	// 根据id删除栏目
 	void delete(Integer id);
-
+    
+	//查找栏目
+	Channel findByTitle(String title);
 }

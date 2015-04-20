@@ -17,6 +17,7 @@ public class GetPhotoServlet extends BaseServlet {
 
 	private static final long serialVersionUID = -8380695760546582385L;
 
+	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		HttpSession session = request.getSession(true);

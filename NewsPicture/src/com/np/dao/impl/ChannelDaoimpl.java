@@ -1,8 +1,11 @@
 package com.np.dao.impl;
 
+import java.util.List;
+
 import com.np.dao.ChannelDao;
 import com.np.hql.NHibernateDaoSupport;
 import com.np.po.Channel;
+
 
 public class ChannelDaoimpl extends NHibernateDaoSupport implements
      ChannelDao {
@@ -13,8 +16,9 @@ public class ChannelDaoimpl extends NHibernateDaoSupport implements
 	 *            需要加载的Channel实例的标识属性值
 	 * @return 指定标识属性对应的Channel实例
 	 */
+	@Override
 	public Channel get(Integer id) {
-		return (Channel) getHibernateTemplate().get(Channel.class, id);
+		return getHibernateTemplate().get(Channel.class, id);
 	}
 
 	/**
@@ -24,6 +28,7 @@ public class ChannelDaoimpl extends NHibernateDaoSupport implements
 	 *            需要被持久化的Channel实例
 	 * @return Channel实例被持久化后的标识属性值
 	 */
+	@Override
 	public Integer save(Channel channel) {
 		return (Integer) getHibernateTemplate().save(channel);
 	}
@@ -34,6 +39,7 @@ public class ChannelDaoimpl extends NHibernateDaoSupport implements
 	 * @param Channel
 	 *            需要被修改的Channel实例
 	 */
+	@Override
 	public void update(Channel channel) {
 		getHibernateTemplate().update(channel);
 	}
@@ -44,6 +50,7 @@ public class ChannelDaoimpl extends NHibernateDaoSupport implements
 	 * @param Channel
 	 *            需要被删除的Channel实例
 	 */
+	@Override
 	public void delete(Channel channel) {
 		getHibernateTemplate().delete(channel);
 	}
@@ -54,7 +61,18 @@ public class ChannelDaoimpl extends NHibernateDaoSupport implements
 	 * @param id
 	 *            需要被删除的Channel实例的标识属性值
 	 */
+	@Override
 	public void delete(Integer id) {
 		getHibernateTemplate().delete(get(id));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Channel findByTitle(String title) {
+		List<Channel> channels = (List<Channel>) getHibernateTemplate().find(
+				"from channel  where title = ?", title);
+		if (channels != null && channels.size() == 1) {
+			return channels.get(0);
+		}
+		return null;
 	}
 }

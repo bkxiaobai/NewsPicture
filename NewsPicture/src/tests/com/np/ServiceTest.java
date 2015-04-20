@@ -37,16 +37,16 @@ public class ServiceTest {
 		
 		// ”√ªß
 		User user = new User();
-		user.setUsername("hello");
+		user.setUsername("pelo");
 		user.setPassword("world");
 		userDao.save(user);
 		
 		
 		// œ‡≤·
 		Album album = new Album();
-		album.setTitle("my-album");
+		album.setTitle("myalbum");
 		
-		album.setUser(user);;
+		album.setUser(user);
 		album.setChannel(channel);
 		albumDao.save(album);
 		
@@ -54,7 +54,7 @@ public class ServiceTest {
 		// ’’∆¨
 		Photo photo = new Photo();
 		photo.setTitle("my-photo");
-		photo.setFileName("xxx.jpg");
+		photo.setFileName("x.jpg");
 		photo.setKeyword("life");
 		
 		photo.setUser(user);
