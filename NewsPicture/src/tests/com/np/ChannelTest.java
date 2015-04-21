@@ -1,6 +1,4 @@
 package tests.com.np;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -9,12 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.np.dao.ChannelDao;
 import com.np.dao.AlbumDao;
+import com.np.dao.ChannelDao;
 import com.np.dao.PhotoDao;
-import com.np.po.Album;
 import com.np.po.Channel;
-import com.np.po.Photo;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 public class ChannelTest {
@@ -47,15 +43,7 @@ public class ChannelTest {
 		
 		@Test
 		public void testDelete() {
-			List<Album> albums = albumDao.findByChannel(1);
-			for (Album album : albums) {
-				Album ad=new Album();   
-				for(int i=0;i<albums.size();i++){   
-				ad=(Album)albums.get(i);   
-				album_id=ad.getId();   
-				                       }
-			
-			Channel channel = channelDao.get(1);
+			Channel channel = channelDao.findById(1);
 			Assert.assertNotNull(channel);
 			channelDao.delete(channel);
 		}

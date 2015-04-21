@@ -7,7 +7,7 @@ import com.np.po.Channel;
 public interface ChannelDao {
 
 	// 根据标识属性来加载栏目,需要加载栏目的id,指定id对应的栏目
-	Channel get(Integer id);
+	Channel findById(Integer id);
 
 	// 持久化栏目
 	Integer save(Channel channel);
