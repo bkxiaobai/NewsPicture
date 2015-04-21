@@ -24,6 +24,7 @@ public class GetPhotoServlet extends BaseServlet {
 		// 从HttpSession中获取系统当前用户、相片列表的当前页码
 		String name = (String) session.getAttribute("curUser");
 		Object pageObj = session.getAttribute("curPage");
+		
 		// 如果HttpSession中的curPage为null，则设置当前页为第一页
 		int curPage = pageObj == null ? 1 : (Integer) pageObj;
 		response.setContentType("text/javascript;charset=GBK");

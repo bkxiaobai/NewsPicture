@@ -40,7 +40,7 @@ public interface NService {
 	 *            添加相片的关键词    
 	 * @return 新添加相片的主键
 	 */
-	int addPhoto(String title, String fileName, String keyword, int user_id, int album_id);
+	int addPhoto(String title, String fileName, String keyword, String username, int album_id);
 
 	/**
 	 * 根据用户获得该用户的所有相片

@@ -68,7 +68,7 @@ public class PhotoTest {
 
 	@Test
 	public void testupdate() {
-		Photo photo = photoDao.get(3);
+		Photo photo = photoDao.findById(3);
 		photo.setTitle("p1.1");
 		photo.setFileName("04");
 		photo.setKeyword("Æû³µ");

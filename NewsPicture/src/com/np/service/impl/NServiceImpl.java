@@ -111,14 +111,14 @@ public class NServiceImpl implements NService {
 	 */
 	@Override
 	public int addPhoto(String title, String fileName,
-			String keyword, int user_id, int album_id) {
+			String keyword, String username, int album_id) {
 		try {
 			// 创建一个新的Photo实例
 			Photo p = new Photo();
 			p.setTitle(title);
 			p.setFileName(fileName);
 			p.setKeyword(keyword);
-			p.setUser(userDao.get(user_id));
+			p.setUser(userDao.findByName(username));
 			// 持久化Photo实例
 			photoDao.save(p);
 			return p.getId();

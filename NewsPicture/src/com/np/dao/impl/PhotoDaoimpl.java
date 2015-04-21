@@ -17,7 +17,7 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	 * @return 指定标识属性对应的Photo实例
 	 */
 	@Override
-	public Photo get(Integer id) {
+	public Photo findById(Integer id) {
 		return getHibernateTemplate().get(Photo.class, id);
 	}
 

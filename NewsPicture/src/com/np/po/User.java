@@ -17,8 +17,19 @@ public class User {
 	// 用户密码
     @Column(length=255, nullable=false)  
 	private String password;
+    
+    @Column()
+    private boolean isAdmin;
 
     
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	// id属性的setter和getter方法
 	public void setId(Integer id) {
 		this.id = id;

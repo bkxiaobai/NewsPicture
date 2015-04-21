@@ -13,7 +13,7 @@ public interface PhotoDao {
 	final int PAGE_SIZE = 8;
 
 	//根据id加载photo实例
-	Photo get(Integer id);
+	Photo findById(Integer id);
 
 	//持久化photo实例
 	Integer save(Photo photo);

@@ -28,6 +28,7 @@ public class ProUploadServlet extends BaseServlet {
 			throws IOException, ServletException {
 		Iterator iter = null;
 		String title = null;
+		String keyword = request.getParameter("keyword");
 		response.setContentType("text/html;charset=GBK");
 		// 获取输出流
 		PrintWriter out = response.getWriter();
@@ -52,6 +53,8 @@ public class ProUploadServlet extends BaseServlet {
 				else {
 					String user = (String) request.getSession().getAttribute(
 							"curUser");
+					int album_id = (Integer)request.getSession().getAttribute(
+							"curAlbumID");
 					String serverFileName = null;
 					// 返回文件名
 					String fileName = item.getName();
@@ -79,7 +82,7 @@ public class ProUploadServlet extends BaseServlet {
 						}
 						input.close();
 						output.close();
-						//TODO as.addPhoto(user, title, serverFileName + appden, keyword);
+						as.addPhoto(title, serverFileName + appden, keyword, user, album_id);
 						response.sendRedirect("album.html?resultCode=0");
 					} else {
 						response.sendRedirect("album.html?resultCode=1");

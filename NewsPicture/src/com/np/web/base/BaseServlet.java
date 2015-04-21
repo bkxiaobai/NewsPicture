@@ -21,6 +21,6 @@ public class BaseServlet extends HttpServlet {
 		super.init(config);
 		ApplicationContext ctx = WebApplicationContextUtils
 				.getWebApplicationContext(getServletContext());
-		as = (NService) ctx.getBean("nService");
+		as = (NService) ctx.getBean("NService");
 	}
 }

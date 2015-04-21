@@ -4,8 +4,85 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-  <display-name></display-name>	
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>proLogin</servlet-name>
+		<servlet-class>com.np.web.ProLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>proLogin</servlet-name>
+		<url-pattern>/proLogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>proRegist</servlet-name>
+		<servlet-class>com.np.web.ProRegistServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>proRegist</servlet-name>
+		<url-pattern>/proRegist</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>validateName</servlet-name>
+		<servlet-class>com.np.web.ValidateNameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>validateName</servlet-name>
+		<url-pattern>/validateName</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>getPhoto</servlet-name>
+		<servlet-class>com.np.web.GetPhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getPhoto</servlet-name>
+		<url-pattern>/getPhoto</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>showImg</servlet-name>
+		<servlet-class>com.np.web.ShowImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>showImg</servlet-name>
+		<url-pattern>/showImg</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>pageLoad</servlet-name>
+		<servlet-class>com.np.web.PageLoadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>pageLoad</servlet-name>
+		<url-pattern>/pageLoad</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>turnPage</servlet-name>
+		<servlet-class>com.np.web.TurnPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>turnPage</servlet-name>
+		<url-pattern>/turnPage</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>proUpload</servlet-name>
+		<servlet-class>com.np.web.ProUploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>proUpload</servlet-name>
+		<url-pattern>/proUpload</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>album.html</welcome-file>
+	</welcome-file-list>
+
 </web-app>
