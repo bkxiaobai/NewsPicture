@@ -17,7 +17,7 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 * @return 指定标识属性对应的Album实例
 	 */
 	@Override
-	public Album get(Integer id) {
+	public Album findById(Integer id) {
 		return getHibernateTemplate().get(Album.class, id);
 	}
 

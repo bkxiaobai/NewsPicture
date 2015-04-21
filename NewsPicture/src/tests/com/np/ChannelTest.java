@@ -49,16 +49,10 @@ public class ChannelTest {
 		public void testDelete() {
 			List<Album> albums = albumDao.findByChannel(1);
 			for (Album album : albums) {
-				albumDao.get(null);
-				List<Photo> photos = photoDao.findByAlbum();
-				
-				for (Photo photo : photos) {
-				Assert.assertNotNull(photo);
-		        photoDao.delete(photo);    }
-				
-				Album album = albumDao.get();
-				Assert.assertNotNull(album);
-				albumDao.delete(album);  
+				Album ad=new Album();   
+				for(int i=0;i<albums.size();i++){   
+				ad=(Album)albums.get(i);   
+				album_id=ad.getId();   
 				                       }
 			
 			Channel channel = channelDao.get(1);

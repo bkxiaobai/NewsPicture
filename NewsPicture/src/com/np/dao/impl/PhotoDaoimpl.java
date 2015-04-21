@@ -102,13 +102,10 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	}
 	
 	@Override
-	public Photo findByKeyword(String keyword) {
+	public List<Photo> findByKeyword(String keyword) {
 		@SuppressWarnings("unchecked")
 		List<Photo> photos = (List<Photo>) getHibernateTemplate().find(
-				"from photo p where p.keyword = ?", keyword);
-		if (photos != null ) {
-			return photos.get(0);
-		}
-		return null;
+				"from photo p where p.keyword like ?", '%' + keyword + '%');
+			return photos;
 	}
 }

@@ -37,7 +37,7 @@ public interface PhotoDao {
 	Photo findByTitle(String title);
 	
 	//根据相片关键词查找
-	Photo findByKeyword(String keyword);
+	List<Photo> findByKeyword(String keyword);
 	
 }
 

@@ -12,7 +12,7 @@ public interface AlbumDao {
 	final int PAGE_SIZE = 8;
 
 	//根据id加载album实例
-	Album get(Integer id);
+	Album findById(Integer id);
 
 	//持久化album实例
 	Integer save(Album album);

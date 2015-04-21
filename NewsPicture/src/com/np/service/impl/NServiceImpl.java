@@ -110,15 +110,15 @@ public class NServiceImpl implements NService {
 	 * @return 新添加相片的主键
 	 */
 	@Override
-	public int addPhoto(String user, String title, String fileName,
-			String keyword) {
+	public int addPhoto(String title, String fileName,
+			String keyword, int user_id, int album_id) {
 		try {
 			// 创建一个新的Photo实例
 			Photo p = new Photo();
 			p.setTitle(title);
 			p.setFileName(fileName);
 			p.setKeyword(keyword);
-			p.setUser(userDao.findByName(user));
+			p.setUser(userDao.get(user_id));
 			// 持久化Photo实例
 			photoDao.save(p);
 			return p.getId();

@@ -50,7 +50,7 @@ public class PhotoTest {
 	public void testCreate() {
 		Photo photo = new Photo();
 		photo.setUser(userDao.findByName("hello"));
-		photo.setAlbum(albumDao.get(1));
+		photo.setAlbum(albumDao.findById(1));
 		photo.setTitle("p3");
 		photo.setFileName("02");
 		photo.setKeyword("·ç¾°");

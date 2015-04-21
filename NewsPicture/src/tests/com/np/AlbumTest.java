@@ -62,7 +62,7 @@ public class AlbumTest {
 
 	@Test
 	public void testupdate() {
-		Album album = albumDao.get(1);
+		Album album = albumDao.findById(1);
 		album.setTitle("บวบว");
 		albumDao.update(album);
 	}
@@ -73,7 +73,7 @@ public class AlbumTest {
 		for (Photo photo : photos) {
 		Assert.assertNotNull(photo);
         photoDao.delete(photo);    }
-		Album album = albumDao.get(1);
+		Album album = albumDao.findById(1);
 		Assert.assertNotNull(album);
 		albumDao.delete(album);
 	}
