@@ -16,6 +16,7 @@ import com.np.dao.UserDao;
 import com.np.dao.PhotoDao;
 import com.np.po.Album;
 import com.np.po.Photo;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 public class AlbumTest {
@@ -28,7 +29,7 @@ public class AlbumTest {
 	ChannelDao channelDao;
 	@Autowired
 	PhotoDao photoDao;
-	
+
 	@Test
 	public void testFindAll() {
 
@@ -39,15 +40,16 @@ public class AlbumTest {
 		System.out.println("haaa");
 
 	}
-    @Test
-	public void testFindByChannel(){
+
+	@Test
+	public void testFindByChannel() {
 		List<Album> albums = albumDao.findByChannel(1);
 		for (Album album : albums) {
 			System.out.println(album.getTitle());
 		}
 		System.out.println("haaa");
 	}
-	
+
 	@Test
 	public void testCreate() {
 		Album album = new Album();
@@ -59,25 +61,18 @@ public class AlbumTest {
 
 	}
 
-
 	@Test
 	public void testupdate() {
 		Album album = albumDao.get(1);
 		album.setTitle("บวบว");
 		albumDao.update(album);
 	}
-	
+
 	@Test
 	public void testDelete() {
-		List<Photo> photos = photoDao.findByAlbum(1);
-		for (Photo photo : photos) {
-		Assert.assertNotNull(photo);
-        photoDao.delete(photo);    }
 		Album album = albumDao.get(1);
-		Assert.assertNotNull(album);
 		albumDao.delete(album);
 	}
-
 
 	@BeforeClass
 	public static void before() {
@@ -88,4 +83,3 @@ public class AlbumTest {
 
 	}
 }
-

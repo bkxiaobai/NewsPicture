@@ -2,9 +2,14 @@ package com.np.dao.impl;
 
 import java.util.List;
 
+import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.np.dao.AlbumDao;
+import com.np.dao.PhotoDao;
 import com.np.hql.NHibernateDaoSupport;
 import com.np.po.Album;
+import com.np.po.Photo;
 import com.np.po.User;
 
 public class AlbumDaoimpl extends NHibernateDaoSupport implements
@@ -16,6 +21,9 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 *            需要加载的Album实例的标识属性值
 	 * @return 指定标识属性对应的Album实例
 	 */
+	@Autowired
+	PhotoDao photoDao;
+	
 	@Override
 	public Album get(Integer id) {
 		return getHibernateTemplate().get(Album.class, id);
@@ -52,7 +60,13 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 */
 	@Override
 	public void delete(Album album) {
+		List<Photo> photos = photoDao.findByAlbum(album.getId());
+		for (Photo photo : photos) {
+			Assert.assertNotNull(photo);
+			photoDao.delete(photo);
+		}
 		getHibernateTemplate().delete(album);
+
 	}
 
 	/**

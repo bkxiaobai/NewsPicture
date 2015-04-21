@@ -2,13 +2,20 @@ package com.np.dao.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.np.dao.AlbumDao;
 import com.np.dao.ChannelDao;
 import com.np.hql.NHibernateDaoSupport;
+import com.np.po.Album;
 import com.np.po.Channel;
 
 
 public class ChannelDaoimpl extends NHibernateDaoSupport implements
      ChannelDao {
+	
+	@Autowired
+	AlbumDao albumDao;
 	/**
 	 * 根据标识属性来加载Channel实例
 	 * 
@@ -52,6 +59,10 @@ public class ChannelDaoimpl extends NHibernateDaoSupport implements
 	 */
 	@Override
 	public void delete(Channel channel) {
+		List<Album> albums = albumDao.findByChannel(channel.getId());
+		for (Album album: albums) {
+			albumDao.delete(album);
+		}
 		getHibernateTemplate().delete(channel);
 	}
 
@@ -63,7 +74,7 @@ public class ChannelDaoimpl extends NHibernateDaoSupport implements
 	 */
 	@Override
 	public void delete(Integer id) {
-		getHibernateTemplate().delete(get(id));
+		delete(get(id));
 	}
 	
 	@SuppressWarnings("unchecked")
