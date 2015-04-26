@@ -1,7 +1,8 @@
 package com.np.dao;
 
-import com.np.po.Channel;
+import java.util.List;
 
+import com.np.po.Channel;
 
 //ChannelDao接口
 public interface ChannelDao {
@@ -18,9 +19,8 @@ public interface ChannelDao {
 	// 删除指定栏目
 	void delete(Channel channel);
 
-	// 根据id删除栏目
-	void delete(Integer id);
-    
-	//查找栏目
+	// 查找所有栏目
+	List<Channel> findAll();
+	
 	Channel findByTitle(String title);
 }

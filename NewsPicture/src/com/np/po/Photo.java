@@ -47,7 +47,7 @@ public class Photo {
 	
 	//album属性的setter和getter方法
 	public Album getAlbum() {
-		return album;
+		return this.album;
 	}
 
 	public void setAlbum(Album album) {
@@ -60,13 +60,13 @@ public class Photo {
 
 	// 初始化全部属性的构造器
 	public Photo(Integer id, String title, String fileName, String keyword,
-			User user) {
+			User user,Album album) {
 		this.id = id;
 		this.title = title;
 		this.fileName = fileName;
 		this.keyword = keyword;
 		this.user = user;
-		// this.album =album;
+		this.album = album;
 	}
 
 	

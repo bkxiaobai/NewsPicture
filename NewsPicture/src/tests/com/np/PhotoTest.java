@@ -28,7 +28,7 @@ public class PhotoTest {
 
 	@Test
 	public void testFindByAlbum(){
-		List<Photo> photos = photoDao.findByAlbum(1);
+		List<Photo> photos = photoDao.findByAlbum(1,8);
 		for (Photo photo : photos) {
 			System.out.println(photo.getTitle());
 		}
@@ -61,7 +61,7 @@ public class PhotoTest {
 
 	@Test
 	public void testDelete() {
-		Photo photo = photoDao.findByTitle("p1");
+		Photo photo = photoDao.findById(1);
 		Assert.assertNotNull(photo);
 		// photoDao.delete(photo);
 	}

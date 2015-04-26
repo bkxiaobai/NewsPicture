@@ -11,11 +11,10 @@ import com.np.dao.PhotoDao;
 import com.np.dao.UserDao;
 import com.np.exception.NException;
 import com.np.po.Album;
+import com.np.po.Channel;
 import com.np.po.Photo;
 import com.np.po.User;
 import com.np.service.NService;
-import com.np.vo.AlbumHolder;
-import com.np.vo.PhotoHolder;
 
 public class NServiceImpl implements NService {
 	// 业务逻辑组件所依赖的3个DAO组件
@@ -29,12 +28,11 @@ public class NServiceImpl implements NService {
 	@Autowired
 	private ChannelDao channelDao;
 
-
-	public void setChannelDao(ChannelDao channelDao) {
-		this.channelDao = channelDao;
+	// 依赖注入4个DAO组件所需的setter方法
+	public void setChannelDao(ChannelDao cd) {
+		this.channelDao = cd;
 	}
 
-	// 依赖注入3个DAO组件所需的setter方法
 	public void setUserDao(UserDao ud) {
 		this.userDao = ud;
 	}
@@ -110,8 +108,8 @@ public class NServiceImpl implements NService {
 	 * @return 新添加相片的主键
 	 */
 	@Override
-	public int addPhoto(String title, String fileName,
-			String keyword, String username, int album_id) {
+	public int addPhoto(String title, String fileName, String keyword,
+			String username, int album_id) {
 		try {
 			// 创建一个新的Photo实例
 			Photo p = new Photo();
@@ -119,6 +117,7 @@ public class NServiceImpl implements NService {
 			p.setFileName(fileName);
 			p.setKeyword(keyword);
 			p.setUser(userDao.findByName(username));
+			p.setAlbum(albumDao.findById(album_id));
 			// 持久化Photo实例
 			photoDao.save(p);
 			return p.getId();
@@ -138,14 +137,14 @@ public class NServiceImpl implements NService {
 	 * @return 返回属于该用户、指定页的相片
 	 */
 	@Override
-	public List<PhotoHolder> getPhotoByUser(String user, int pageNo) {
+	public List<Photo> getPhotoByUser(User user, int pageNo) {
 		try {
-			List<Photo> pl = photoDao.findByUser(userDao.findByName(user),
-					pageNo);
-			List<PhotoHolder> result = new ArrayList<PhotoHolder>();
-			for (Photo p : pl) {
-				result.add(new PhotoHolder(p.getTitle(), p.getFileName(), p
-						.getKeyword()));
+			List<Photo> photos = photoDao.findByUser(user.getId(), pageNo);
+			List<Photo> result = new ArrayList<Photo>();
+			for (Photo photo : photos) {
+				result.add(new Photo(photo.getId(), photo.getTitle(), photo
+						.getFileName(), photo.getKeyword(), photo.getUser(),
+						photo.getAlbum()));
 			}
 			return result;
 		} catch (Exception ex) {
@@ -164,12 +163,12 @@ public class NServiceImpl implements NService {
 	 * @return 新添加图集的主键
 	 */
 	@Override
-	public int addAlbum(String user, String title) {
+	public int addAlbum(String username, String title) {
 		try {
 			// 创建一个新的Album实例
 			Album a = new Album();
 			a.setTitle(title);
-			a.setUser(userDao.findByName(user));
+			a.setUser(userDao.findByName(username));
 			// 持久化Album实例
 			albumDao.save(a);
 			return a.getId();
@@ -189,13 +188,13 @@ public class NServiceImpl implements NService {
 	 * @return 返回属于该用户、指定页的相片
 	 */
 	@Override
-	public List<AlbumHolder> getAlbumByUser(String user, int pageNo) {
+	public List<Album> getAlbumByUser(User user, int pageNo) {
 		try {
-			List<Album> al = albumDao.findByUser(userDao.findByName(user),
-					pageNo);
-			List<AlbumHolder> result = new ArrayList<AlbumHolder>();
-			for (Album a : al) {
-				result.add(new AlbumHolder(a.getTitle()));
+			List<Album> albums = albumDao.findByUser(user.getId(), pageNo);
+			List<Album> result = new ArrayList<Album>();
+			for (Album album : albums) {
+				result.add(new Album(album.getId(), album.getTitle(), album
+						.getUser(), album.getChannel()));
 			}
 			return result;
 		} catch (Exception ex) {
@@ -225,4 +224,34 @@ public class NServiceImpl implements NService {
 			throw new NException("验证用户名是否存在的过程中出现异常！");
 		}
 	}
+
+	// 创建栏目
+	public int addChannel(String title) {
+		try {
+			// 创建一个新的Channel实例
+			Channel c = new Channel();
+			c.setTitle(title);
+			// 持久化Channel实例
+			channelDao.save(c);
+			return c.getId();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new NException("创建栏目过程中出现异常！");
+		}
+	}
+
+	public List<Channel> getChannel() {
+		try {
+			List<Channel> channels = channelDao.findAll();
+			List<Channel> result = new ArrayList<Channel>();
+			for (Channel channel : channels) {
+				result.add(new Channel(channel.getId(), channel.getTitle()));
+			}
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new NException("查询栏目列表的过程中出现异常！");
+		}
+	}
+	
 }

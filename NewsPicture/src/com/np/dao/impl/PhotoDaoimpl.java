@@ -5,10 +5,8 @@ import java.util.List;
 import com.np.dao.PhotoDao;
 import com.np.hql.NHibernateDaoSupport;
 import com.np.po.Photo;
-import com.np.po.User;
 
-public class PhotoDaoimpl extends NHibernateDaoSupport implements
-		PhotoDao {
+public class PhotoDaoimpl extends NHibernateDaoSupport implements PhotoDao {
 	/**
 	 * 根据标识属性来加载Photo实例
 	 * 
@@ -55,7 +53,6 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 		getHibernateTemplate().delete(photo);
 	}
 
-
 	/**
 	 * 查询全部的Photo实例
 	 * 
@@ -78,34 +75,34 @@ public class PhotoDaoimpl extends NHibernateDaoSupport implements
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Photo> findByUser(User user, int pageNo) {
+	public List<Photo> findByUser(int user_id, int pageNo) {
 		int offset = (pageNo - 1) * PAGE_SIZE;
 		// 返回分页查询的结果
-		return (List<Photo>) findByPage("from photo p where p.user = ?", user,
-				offset, PAGE_SIZE);
+		return (List<Photo>) findByPage("from photo where user_id = ?",
+				user_id, offset, PAGE_SIZE);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Photo> findByAlbum(int album_id) {
-		return (List<Photo>) getHibernateTemplate().find("from photo where album_id = ?",album_id);
+	public List<Photo> findByAlbum(int album_id, int pageNo) {
+		int offset = (pageNo - 1) * PAGE_SIZE;
+		return (List<Photo>) findByPage("from photo where album_id = ?",
+				album_id, offset, PAGE_SIZE);
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
-	public Photo findByTitle(String title) {
-		@SuppressWarnings("unchecked")
-		List<Photo> photos = (List<Photo>) getHibernateTemplate().find(
-				"from photo p where p.title = ?", title);
-		if (photos != null && photos.size() == 1) {
-			return photos.get(0);
-		}
-		return null;
+	public List<Photo> findByTitle(String title, int pageNo) {
+		// @SuppressWarnings("unchecked")
+		int offset = (pageNo - 1) * PAGE_SIZE;
+		return (List<Photo>) findByPage("from photo where title like ?",
+				'%' + title + '%',offset,PAGE_SIZE);
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Photo> findByKeyword(String keyword) {
-		@SuppressWarnings("unchecked")
-		List<Photo> photos = (List<Photo>) getHibernateTemplate().find(
-				"from photo p where p.keyword like ?", '%' + keyword + '%');
-			return photos;
+	public List<Photo> findByKeyword(String keyword,int pageNo) {
+		int offset = (pageNo - 1) * PAGE_SIZE;
+		return(List<Photo>) findByPage("from photo where keyword like ?",
+				'%' + keyword + '%',offset,PAGE_SIZE);
 	}
 }

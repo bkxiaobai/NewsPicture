@@ -112,7 +112,7 @@ function onLoadHandler()
 //œ‘ æ’’∆¨
 function showImg(fileName)
 {
-	$.getScript("showImg?img=" + fileName);
+	$.getScript("showImg?img=" + title);
 //	document.getElementById("show").src="uploadfiles/" + fileName + "?now=" + new Date();
 //	$("#show").attr("src" , "uploadfiles/" + fileName);
 }

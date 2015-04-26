@@ -10,44 +10,38 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.np.exception.NException;
-import com.np.po.Photo;
+import com.np.po.Album;
 import com.np.po.User;
 import com.np.web.base.BaseServlet;
 
-public class TurnPageServlet extends BaseServlet {
-
-	private static final long serialVersionUID = -5097286750384714951L;
+@SuppressWarnings("serial")
+public class GetAlbumServlet extends BaseServlet {
 
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		String turn = request.getParameter("turn");
 		HttpSession session = request.getSession(true);
+		// 从HttpSession中获取系统当前用户、图集列表的当前页码
 		User user = (User) session.getAttribute("curUser");
 		Object pageObj = session.getAttribute("curPage");
+
 		// 如果HttpSession中的curPage为null，则设置当前页为第一页
 		int curPage = pageObj == null ? 1 : (Integer) pageObj;
 		response.setContentType("text/javascript;charset=GBK");
+		// 获取输出流
 		PrintWriter out = response.getWriter();
-		if (curPage == 1 && turn.equals("-1")) {
-			out.println("alert('现在已经是第一页，无法向前翻页！')");
-		} else {
-			// 执行翻页，修改curPage的值。
-			curPage += Integer.parseInt(turn);
-			try {
-				List<Photo> photos = as.getPhotoByUser(user, curPage);
-				// 翻页后没有记录
-				if (photos.size() == 0) {
-					out.println("alert('翻页后找不到任何相片记录，系统将自动返回上一页')");
-					// 重新返回上一页
-					curPage -= Integer.parseInt(turn);
-				} else {
-					// 把用户正在浏览的页码放入HttpSession中
-					session.setAttribute("curPage", curPage);
-				}
-			} catch (NException ex) {
-				out.println("alert('" + ex.getMessage() + "请重试！')");
+		try {
+			List<Album> albums = as.getAlbumByUser(user, curPage);
+			// 清空id为list的元素
+			out.println("var list = $('#list').empty();");
+			for (Album ah : albums) {
+				// 将每个图集动态添加到id为list的元素中
+				out.println("list.append(\"<div align='center'>"
+						+ "<a href='javascript:void(0)' onclick=\\\"showAlbum('"
+						+ ah.getTitle() + "');\\\">");
 			}
+		} catch (NException ex) {
+			out.println("alert('" + ex.getMessage() + "请重试！')");
 		}
 	}
 }

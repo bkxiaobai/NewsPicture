@@ -41,7 +41,7 @@ public class AlbumTest {
 
 	@Test
 	public void testFindByChannel() {
-		List<Album> albums = albumDao.findByChannel(1);
+		List<Album> albums = albumDao.findByChannel(1,8);
 		for (Album album : albums) {
 			System.out.println(album.getTitle());
 		}

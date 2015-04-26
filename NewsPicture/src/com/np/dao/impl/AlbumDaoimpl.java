@@ -10,7 +10,6 @@ import com.np.dao.PhotoDao;
 import com.np.hql.NHibernateDaoSupport;
 import com.np.po.Album;
 import com.np.po.Photo;
-import com.np.po.User;
 
 public class AlbumDaoimpl extends NHibernateDaoSupport implements
 		AlbumDao {
@@ -60,7 +59,7 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 */
 	@Override
 	public void delete(Album album) {
-		List<Photo> photos = photoDao.findByAlbum(album.getId());
+		List<Photo> photos = photoDao.findByAlbum(album.getId(),8);
 		for (Photo photo : photos) {
 			Assert.assertNotNull(photo);
 			photoDao.delete(photo);
@@ -91,16 +90,18 @@ public class AlbumDaoimpl extends NHibernateDaoSupport implements
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Album> findByUser(User user, int pageNo) {
+	public List<Album> findByUser(int user_id, int pageNo) {
 		int offset = (pageNo - 1) * PAGE_SIZE;
 		// 返回分页查询的结果
-		return (List<Album>) findByPage("from album b where b.user = ?", user,
+		return (List<Album>) findByPage("from album  where user_id = ?", user_id,
 				offset, PAGE_SIZE);
 }
 	
 	@SuppressWarnings("unchecked")
-	public List<Album> findByChannel(int channel_id) {
-		return (List<Album>) getHibernateTemplate().find("from album where channel_id = ?",channel_id);
+	public List<Album> findByChannel(int channel_id, int pageNo) {
+		int offset = (pageNo - 1) * PAGE_SIZE;
+		return (List<Album>) findByPage("from album where channel_id = ?",channel_id,
+				offset,PAGE_SIZE);
 	}
 	
 }

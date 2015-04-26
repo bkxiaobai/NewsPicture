@@ -6,8 +6,7 @@ import com.np.dao.UserDao;
 import com.np.hql.NHibernateDaoSupport;
 import com.np.po.User;
 
-public class UserDaoimpl extends NHibernateDaoSupport implements
-		UserDao {
+public class UserDaoimpl extends NHibernateDaoSupport implements UserDao {
 	/**
 	 * 根据标识属性来加载User实例
 	 * 
@@ -84,13 +83,9 @@ public class UserDaoimpl extends NHibernateDaoSupport implements
 	 * @return 查找到的用户
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public User findByName(String username) {
-		List<User> users = (List<User>) getHibernateTemplate().find(
+		User user = (User) getHibernateTemplate().find(
 				"from user u where u.username = ?", username);
-		if (users != null && users.size() == 1) {
-			return users.get(0);
-		}
-		return null;
+		return user;
 	}
 }

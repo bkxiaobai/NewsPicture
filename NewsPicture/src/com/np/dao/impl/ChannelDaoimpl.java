@@ -10,12 +10,11 @@ import com.np.hql.NHibernateDaoSupport;
 import com.np.po.Album;
 import com.np.po.Channel;
 
+public class ChannelDaoimpl extends NHibernateDaoSupport implements ChannelDao {
 
-public class ChannelDaoimpl extends NHibernateDaoSupport implements
-     ChannelDao {
-	
 	@Autowired
 	AlbumDao albumDao;
+
 	/**
 	 * 根据标识属性来加载Channel实例
 	 * 
@@ -59,31 +58,20 @@ public class ChannelDaoimpl extends NHibernateDaoSupport implements
 	 */
 	@Override
 	public void delete(Channel channel) {
-		List<Album> albums = albumDao.findByChannel(channel.getId());
-		for (Album album: albums) {
+		List<Album> albums = albumDao.findByChannel(channel.getId(),8);
+		for (Album album : albums) {
 			albumDao.delete(album);
 		}
 		getHibernateTemplate().delete(channel);
 	}
 
-	/**
-	 * 根据标识属性删除Channel实例
-	 * 
-	 * @param id
-	 *            需要被删除的Channel实例的标识属性值
-	 */
-	@Override
-	public void delete(Integer id) {
-		delete(findById(id));
-	}
-	
 	@SuppressWarnings("unchecked")
-	public Channel findByTitle(String title) {
-		List<Channel> channels = (List<Channel>) getHibernateTemplate().find(
-				"from channel  where title = ?", title);
-		if (channels != null && channels.size() == 1) {
-			return channels.get(0);
-		}
-		return null;
+	public List<Channel> findAll() {
+		return (List<Channel>) getHibernateTemplate().find("from channel");
 	}
+
+	public Channel findByTitle(String title) {
+		return (Channel) getHibernateTemplate().find("from channel where title = ?", title);
+}
+	
 }

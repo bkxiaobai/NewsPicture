@@ -1,8 +1,11 @@
 package com.np.service;
 
 import java.util.List;
-import com.np.vo.PhotoHolder;
-import com.np.vo.AlbumHolder;
+
+import com.np.po.Album;
+import com.np.po.Channel;
+import com.np.po.Photo;
+import com.np.po.User;
 
 public interface NService {
 	/**
@@ -37,10 +40,11 @@ public interface NService {
 	 * @param fileName
 	 *            新增相片在服务器上的文件名
 	 * @param keyword
-	 *            添加相片的关键词    
+	 *            添加相片的关键词
 	 * @return 新添加相片的主键
 	 */
-	int addPhoto(String title, String fileName, String keyword, String username, int album_id);
+	int addPhoto(String title, String fileName, String keyword,
+			String username, int album_id);
 
 	/**
 	 * 根据用户获得该用户的所有相片
@@ -51,7 +55,7 @@ public interface NService {
 	 *            页码
 	 * @return 返回属于该用户、指定页的相片
 	 */
-	List<PhotoHolder> getPhotoByUser(String user, int pageNo);
+	List<Photo> getPhotoByUser(User user, int pageNo);
 
 	/**
 	 * 添加图集
@@ -63,6 +67,8 @@ public interface NService {
 	 * @return 新添加图集的主键
 	 */
 	int addAlbum(String user, String title);
+	
+	int addChannel(String title);
 
 	/**
 	 * 根据用户获得该用户的所有图集
@@ -73,9 +79,9 @@ public interface NService {
 	 *            页码
 	 * @return 返回属于该用户、指定页的相片
 	 */
-	List<AlbumHolder> getAlbumByUser(String user, int pageNo);
+	List<Album> getAlbumByUser(User user, int pageNo);
 
-	
+	List<Channel> getChannel();
 	/**
 	 * 验证用户名是否可用，即数据库里是否已经存在该用户名
 	 * 
@@ -85,4 +91,3 @@ public interface NService {
 	 */
 	boolean validateName(String username);
 }
-
