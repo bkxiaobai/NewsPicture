@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.np.web.base.BaseServlet;
 
-public class ShowImgServlet extends BaseServlet {
+public class ShowPhotoServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 1460203270448078666L;
 

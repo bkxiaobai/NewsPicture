@@ -26,6 +26,7 @@ public class ProUploadServlet extends BaseServlet {
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		@SuppressWarnings("rawtypes")
 		Iterator iter = null;
 		String title = null;
 		String keyword = request.getParameter("keyword");
@@ -37,6 +38,7 @@ public class ProUploadServlet extends BaseServlet {
 			// 使用Uploader处理上传
 			FileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
+			@SuppressWarnings("rawtypes")
 			List items = upload.parseRequest(request);
 			iter = items.iterator();
 			// 遍历每个表单控件对应的内容

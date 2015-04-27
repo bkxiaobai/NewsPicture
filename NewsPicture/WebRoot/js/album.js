@@ -113,8 +113,8 @@ function onLoadHandler()
 function showImg(fileName)
 {
 	$.getScript("showImg?img=" + title);
-//	document.getElementById("show").src="uploadfiles/" + fileName + "?now=" + new Date();
-//	$("#show").attr("src" , "uploadfiles/" + fileName);
+	//document.getElementById("show").src="uploadfiles/" + fileName + "?now=" + new Date();
+	//$("#show").attr("src" , "uploadfiles/" + fileName);
 }
 
 //处理翻页的函数

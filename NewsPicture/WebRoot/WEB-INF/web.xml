@@ -44,6 +44,24 @@
 		<servlet-name>getPhoto</servlet-name>
 		<url-pattern>/getPhoto</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>getAlbum</servlet-name>
+		<servlet-class>com.np.web.GetAlbumServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getAlbum</servlet-name>
+		<url-pattern>/getAlbum</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>getChannel</servlet-name>
+		<servlet-class>com.np.web.GetChannelServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getChannel</servlet-name>
+		<url-pattern>/getChannel</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>showImg</servlet-name>
