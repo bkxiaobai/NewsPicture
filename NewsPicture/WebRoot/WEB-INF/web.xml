@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" 
-	xmlns="http://java.sun.com/xml/ns/javaee" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
@@ -37,26 +36,44 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>getPhoto</servlet-name>
-		<servlet-class>com.np.web.GetPhotoServlet</servlet-class>
+		<servlet-name>getPhotoA</servlet-name>
+		<servlet-class>com.np.web.po.GetPhotoByAlbum</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>getPhoto</servlet-name>
-		<url-pattern>/getPhoto</url-pattern>
+		<servlet-name>getPhotoA</servlet-name>
+		<url-pattern>/getPhotoA</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
-		<servlet-name>getAlbum</servlet-name>
-		<servlet-class>com.np.web.GetAlbumServlet</servlet-class>
+		<servlet-name>getPhotoU</servlet-name>
+		<servlet-class>com.np.web.po.GetPhotoByUser</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>getAlbum</servlet-name>
-		<url-pattern>/getAlbum</url-pattern>
+		<servlet-name>getPhotoU</servlet-name>
+		<url-pattern>/getPhotoU</url-pattern>
 	</servlet-mapping>
-	
+
+	<servlet>
+		<servlet-name>getAlbumC</servlet-name>
+		<servlet-class>com.np.web.po.GetAlbumByChannel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getAlbumC</servlet-name>
+		<url-pattern>/getAlbumC</url-pattern>
+	</servlet-mapping>
+
+    <servlet>
+		<servlet-name>getAlbumU</servlet-name>
+		<servlet-class>com.np.web.GetAlbumByUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getAlbumU</servlet-name>
+		<url-pattern>/getAlbumU</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<servlet-name>getChannel</servlet-name>
-		<servlet-class>com.np.web.GetChannelServlet</servlet-class>
+		<servlet-class>com.np.web.po.GetChannel</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>getChannel</servlet-name>
@@ -64,12 +81,12 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>showImg</servlet-name>
-		<servlet-class>com.np.web.ShowImgServlet</servlet-class>
+		<servlet-name>showPhoto</servlet-name>
+		<servlet-class>com.np.web.po.ShowPhoto</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>showImg</servlet-name>
-		<url-pattern>/showImg</url-pattern>
+		<servlet-name>showPhoto</servlet-name>
+		<url-pattern>/showPhoto</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -91,16 +108,38 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>proUpload</servlet-name>
-		<servlet-class>com.np.web.ProUploadServlet</servlet-class>
+		<servlet-name>UploadPhoto</servlet-name>
+		<servlet-class>com.np.web.po.UploadPhoto</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>proUpload</servlet-name>
-		<url-pattern>/proUpload</url-pattern>
+		<servlet-name>UploadPhoto</servlet-name>
+		<url-pattern>/UploadPhoto</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CreateAlbum</servlet-name>
+		<servlet-class>com.np.web.po.CreateAlbum</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateAlbum</servlet-name>
+		<url-pattern>/CreateAlbum</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CreateChannel</servlet-name>
+		<servlet-class>com.np.web.po.CreateChannel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateChannel</servlet-name>
+		<url-pattern>/CreateChannel</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
 		<welcome-file>album.html</welcome-file>
+	</welcome-file-list>
+
+	<welcome-file-list>
+		<welcome-file>myalbum.html</welcome-file>
 	</welcome-file-list>
 
 </web-app>

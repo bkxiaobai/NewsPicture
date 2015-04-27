@@ -23,4 +23,5 @@ public interface ChannelDao {
 	List<Channel> findAll();
 	
 	Channel findByTitle(String title);
+	
 }

@@ -1,4 +1,5 @@
-package com.np.web;
+
+package com.np.web.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.np.web.base.BaseServlet;
 
-public class ShowPhotoServlet extends BaseServlet {
+public class ShowPhoto extends BaseServlet {
 
 	private static final long serialVersionUID = 1460203270448078666L;
 

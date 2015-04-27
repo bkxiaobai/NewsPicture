@@ -18,13 +18,13 @@ public class ProLoginServlet extends BaseServlet {
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		String username = request.getParameter("user");
-		String password = request.getParameter("pass");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		response.setContentType("text/javascript;charset=GBK");
 		// 获取输出流
 		PrintWriter out = response.getWriter();
 		try {
-			// 清空id为user、pass输入框的内容
+			// 清空id为username、password输入框的内容
 			out.println("$('#username,#password').val('');");
 			if (username != null && password != null && as.userLogin(username, password)) {
 				HttpSession session = request.getSession(true);
@@ -33,7 +33,7 @@ public class ProLoginServlet extends BaseServlet {
 				out.println("$('#noLogin').hide(500)");
 				out.println("$('#hasLogin').show(500)");
 				// 调用获取相片列表的方法
-				out.println("onLoadHandler();");
+				//out.println("onLoadHandler();");
 			} else {
 				out.println("alert('您输入的用户名、密码不符，请重试！')");
 			}

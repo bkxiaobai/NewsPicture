@@ -153,6 +153,23 @@ public class NServiceImpl implements NService {
 		}
 	}
 
+	//根据当前相册获得该相册的所有图片
+	public List<Photo> getPhotoByAlbum(Album album, int pageNo) {
+		try {
+			List<Photo> photos = photoDao.findByAlbum(album.getId(), pageNo);
+			List<Photo> result = new ArrayList<Photo>();
+			for (Photo photo : photos) {
+				result.add(new Photo(photo.getId(), photo.getTitle(), photo
+						.getFileName(), photo.getKeyword(), photo.getUser(),
+						photo.getAlbum()));
+			}
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new NException("查询相片列表的过程中出现异常！");
+		}
+	}
+
 	/**
 	 * 添加图集
 	 * 
@@ -163,12 +180,13 @@ public class NServiceImpl implements NService {
 	 * @return 新添加图集的主键
 	 */
 	@Override
-	public int addAlbum(String username, String title) {
+	public int addAlbum(String username,int Channel_id, String title) {
 		try {
 			// 创建一个新的Album实例
 			Album a = new Album();
 			a.setTitle(title);
 			a.setUser(userDao.findByName(username));
+			a.setChannel(channelDao.findById(Channel_id));
 			// 持久化Album实例
 			albumDao.save(a);
 			return a.getId();
@@ -203,6 +221,20 @@ public class NServiceImpl implements NService {
 		}
 	}
 
+	public List<Album> getAlbumByChannel(Channel channel, int pageNo) {
+		try {
+			List<Album> albums = albumDao.findByChannel(channel.getId(), pageNo);
+			List<Album> result = new ArrayList<Album>();
+			for (Album album : albums) {
+				result.add(new Album(album.getId(), album.getTitle(), album
+						.getUser(), album.getChannel()));
+			}
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new NException("查询图集列表的过程中出现异常！");
+		}
+	}
 	/**
 	 * 验证用户名是否可用，即数据库里是否已经存在该用户名
 	 * 

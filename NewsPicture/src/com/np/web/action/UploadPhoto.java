@@ -1,4 +1,4 @@
-package com.np.web;
+package com.np.web.action;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.np.exception.NException;
 import com.np.web.base.BaseServlet;
 
-public class ProUploadServlet extends BaseServlet {
+public class UploadPhoto extends BaseServlet {
 
 	private static final long serialVersionUID = 642229801989188793L;
 	@Override

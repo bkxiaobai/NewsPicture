@@ -57,6 +57,8 @@ public interface NService {
 	 */
 	List<Photo> getPhotoByUser(User user, int pageNo);
 
+	List<Photo> getPhotoByAlbum(Album album, int pageNo);
+
 	/**
 	 * 添加图集
 	 * 
@@ -66,8 +68,8 @@ public interface NService {
 	 *            添加图集的标题
 	 * @return 新添加图集的主键
 	 */
-	int addAlbum(String user, String title);
-	
+	int addAlbum(String user,int channel_id, String title);
+
 	int addChannel(String title);
 
 	/**
@@ -81,7 +83,10 @@ public interface NService {
 	 */
 	List<Album> getAlbumByUser(User user, int pageNo);
 
+	List<Album> getAlbumByChannel(Channel channel, int pageNo);
+
 	List<Channel> getChannel();
+
 	/**
 	 * 验证用户名是否可用，即数据库里是否已经存在该用户名
 	 * 

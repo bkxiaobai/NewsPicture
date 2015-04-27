@@ -28,11 +28,11 @@ public class PageLoadServlet extends BaseServlet {
 			out.println("$('#noLogin').hide()");
 			// 隐藏id为hasLogin的元素(用户控制面板)
 			out.println("$('#hasLogin').show()");
-			// 调用获取相片列表的方法
-			out.println("onLoadHandler();");
+			// 调用获取图集列表的方法
+			out.println("onLoadPhoto();");
 			// 取出HttpSession中的curImg属性
 			String curImg = (String) session.getAttribute("curImg");
-			// 重新显示用户正在浏览的相片
+			// 重新显示用户正在浏览的图集
 			if (curImg != null) {
 				out.println("$('#show').attr('src' , 'uploadfiles/" + curImg
 						+ "');");

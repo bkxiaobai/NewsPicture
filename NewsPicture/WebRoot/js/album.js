@@ -30,8 +30,8 @@ $(document).ready(function(){
 function reset()
 {
 	//清空user、pass两个单行文本框
-	$("#user").val("");
-	$("#pass").val("");
+	$("#username").val("");
+	$("#password").val("");
 }
 
 //切换到注册对话框
@@ -47,10 +47,10 @@ function changeRegist()
 function proLogin()
 {
 	//获取user、pass两个文本框的值
-	var user = $.trim($("#user").val());
-	var pass = $.trim($("#pass").val());
-	if (user == null || user == "" 
-		|| pass == null|| pass =="")
+	var username = $.trim($("#username").val());
+	var password = $.trim($("#password").val());
+	if (username == null || username == "" 
+		|| password == null|| password =="")
 	{
 		alert("必须先输入用户名和密码才能登录");
 		return false;
@@ -58,7 +58,7 @@ function proLogin()
 	else
 	{
 		//向proLogin发送异步、POST请求
-		$.post("proLogin", $('#user,#pass').serializeArray()
+		$.post("proLogin", $('#username,#password').serializeArray()
 			, null , "script");
 	}
 }
@@ -67,8 +67,8 @@ function proLogin()
 function regist()
 {
 	//获取user、pass两个文本框的值
-	var user = $.trim($("#user").val());
-	var pass = $.trim($("#pass").val());
+	var user = $.trim($("#username").val());
+	var pass = $.trim($("#password").val());
 	if (user == null || user == "" || pass == null || pass =="")
 	{
 		alert("必须先输入用户名和密码才能注册");
@@ -77,7 +77,7 @@ function regist()
 	else
 	{
 		//向proRegist发送异步、POST请求
-		$.post("proRegist", $('#user,#pass').serializeArray()
+		$.post("proRegist", $('#username,#password').serializeArray()
 			, null , "script");
 	}
 }
@@ -86,7 +86,7 @@ function regist()
 function validateName()
 {
 	//获取user文本框的值
-	var user = $.trim($("#user").val());
+	var user = $.trim($("#username").val());
 	if (user == null || user == "")
 	{
 		alert("您还没有输入用户名！");
@@ -95,18 +95,36 @@ function validateName()
 	else
 	{
 		//向validateName发送异步、POST请求
-		$.post("validateName", $('#user').serializeArray()
+		$.post("validateName", $('#username').serializeArray()
 			, null , "script");
 	}
 }
 
 //周期性地获取当前用户、当前页的相片
-function onLoadHandler()
+function onLoadPhoto()
 {
 	//向getPhoto发送异步、GET请求
 	$.getScript("getPhoto");
 	//指定1秒之后再次执行此方法
-	setTimeout("onLoadHandler()", 30 * 1000);
+	setTimeout("onLoadPhoto()", 30 * 1000);
+}
+
+//周期性地获取当前用户、当前页的相册
+function onLoadAlbum()
+{
+	//向getAlbum发送异步、GET请求
+	$.getScript("getAlbum");
+	//指定1秒之后再次执行此方法
+	setTimeout("onLoadAlbum()", 30 * 1000);
+}
+
+//获取当前栏目
+function onLoadChannel()
+{
+	//向getPhoto发送异步、GET请求
+	$.getScript("getChannel");
+	//指定1秒之后再次执行此方法
+	//setTimeout("onLoadHandler()", 30 * 1000);
 }
 
 //显示照片
