@@ -1,20 +1,17 @@
 package com.np.po;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
+import java.io.Serializable;
 
-@Entity(name = "channel")
-public class Channel {
+public class Channel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	// 栏目ID
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	// 栏目名
-	@Column(length = 255, unique=true, nullable = false)
 	private String title;
+	private Set<Album> albums = new HashSet<Album>();
 
 	// 无参数的构造器
 	public Channel() {
@@ -42,6 +39,14 @@ public class Channel {
 
 	public String getTitle() {
 		return this.title;
+	}
+
+	public Set<Album> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(Set<Album> albums) {
+		this.albums = albums;
 	}
 
 }

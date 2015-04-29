@@ -1,110 +1,114 @@
 package com.np.po;
 
-//标准注解
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
-@Entity(name = "photo")
-public class Photo {
-	// 图片ID
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-	// 该图片的名称
-	@Column(length = 255, nullable = false)
+public class Photo implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private int id;
 	private String title;
-	// 图片在服务器上的文件名
-	@Column(length = 255, unique = true, nullable = false)
-	private String fileName;
-	// 该图片的关键词属性
-	@Column(length = 255, nullable = false)
 	private String keyword;
-
-	// 保存该图片所属的用户
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
-
-	// user属性的setter和getter方法
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-	
-	//保存该图片所属的图集
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "album_id", nullable = false)
+	private long times;
+	private String picUrl;
+	private String bigPicUrl;
+	private String smallPicUrl;
+	private String date;
+	private boolean cover;
 	private Album album;
-	
-	//album属性的setter和getter方法
-	public Album getAlbum() {
-		return this.album;
+
+	public Photo(String title, String keyword, long times, String picUrl,
+			String bigPicUrl, String smallPicUrl, String date,boolean cover, Album album ) {
+		setTitle(title);
+		setKeyword(keyword);
+		setTimes(times);
+		setPicUrl(picUrl);
+		setBigPicUrl(bigPicUrl);
+		setSmallPicUrl(smallPicUrl);
+		setDate(date);
+		setAlbum(album);
+		setCover(cover);
 	}
 
-	public void setAlbum(Album album) {
-		this.album = album;
+	public int getId() {
+		return id;
 	}
 
-	// 无参数的构造器
-	public Photo() {
-	}
-
-	// 初始化全部属性的构造器
-	public Photo(Integer id, String title, String fileName, String keyword,
-			User user,Album album) {
-		this.id = id;
-		this.title = title;
-		this.fileName = fileName;
-		this.keyword = keyword;
-		this.user = user;
-		this.album = album;
-	}
-
-	
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Integer getId() {
-		return this.id;
+	public String getTitle() {
+		return title;
 	}
 
-	// title属性的setter和getter方法
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public String getTitle() {
-		return this.title;
-	}
-
-	// fileName属性的setter和getter方法
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getFileName() {
-		return this.fileName;
-	}
-
-	// keyword属性的setter和getter方法
 	public String getKeyword() {
-		return this.keyword;
+		return keyword;
 	}
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
 
-	
+	public long getTimes() {
+		return times;
+	}
 
+	public void setTimes(long times) {
+		this.times = times;
+	}
+
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
+
+	public String getBigPicUrl() {
+		return bigPicUrl;
+	}
+
+	public void setBigPicUrl(String bigPicUrl) {
+		this.bigPicUrl = bigPicUrl;
+	}
+
+	public String getSmallPicUrl() {
+		return smallPicUrl;
+	}
+
+	public void setSmallPicUrl(String smallPicUrl) {
+		this.smallPicUrl = smallPicUrl;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public boolean isCover() {
+		return cover;
+	}
+
+	public void setCover(boolean cover) {
+		this.cover = cover;
+	}
+
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
+
+	public Photo() {
+	}
 }

@@ -1,15 +1,12 @@
 package com.np.exception;
 
-@SuppressWarnings("serial")
-public class NException extends RuntimeException {
+public class NException extends Exception {
+	private static final long serialVersionUID = 1L;
 
-		// 提供一个无参数的构造器
-		public NException() {
-		}
-
-		// 提供一个带字符串参数的构造器
-		public NException(String msg) {
-			super(msg);
-		}
+	public NException() {
 	}
 
+	public NException(String msg) {
+		super(msg);
+	}
+}

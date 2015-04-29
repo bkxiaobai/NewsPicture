@@ -1,6 +1,5 @@
 package tests.com.np;
 
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -20,21 +19,13 @@ public class UserTest {
 	@Autowired
 	UserDao userDao;
 
-	@Test
-	public void testFindAll() {
 
-		List<User> users = userDao.findAll();
-		for (User user : users) {
-			System.out.println(user.getUsername());
-		}
-		System.out.println("haaa");
 
-	}
 
 	@Test
 	public void testCreate() {
-		User user = new User();
-		user.setUsername("user-test");
+		User user = new User(null, null);
+		user.setUsername("bkxiaobai");
 		user.setPassword("456");
 		userDao.save(user);
 		System.out.println("create");
@@ -45,13 +36,13 @@ public class UserTest {
 	@Test
 	public void testupdate() {
 		User user = userDao.findByName("usertest");
-		user.setPassword("123");
+		user.setPassword("1992");
 		userDao.update(user);
 	}
 	
 	@Test
 	public void testDelete() {
-		User user = userDao.findByName("user-test");
+		User user = userDao.findByName("hello");
 		Assert.assertNotNull(user);
 		userDao.delete(user);
 	}

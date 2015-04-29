@@ -2,26 +2,31 @@ package com.np.dao;
 
 import java.util.List;
 
+import com.np.po.Album;
 import com.np.po.Channel;
 
 //ChannelDao接口
 public interface ChannelDao {
-
-	// 根据标识属性来加载栏目,需要加载栏目的id,指定id对应的栏目
-	Channel findById(Integer id);
+	// 根据表示属性加载
+	Channel get(Integer id);
 
 	// 持久化栏目
-	Integer save(Channel channel);
+	void save(Channel channel);
 
 	// 修改栏目
 	void update(Channel channel);
 
 	// 删除指定栏目
 	void delete(Channel channel);
+    
+	//查询所有栏目
+	List<Channel> getAll();
+	
+	// 得到栏目内所有相册
+	List<Album> getAllByChannel(final Channel channel, final int first,
+			final int pageSize);
 
-	// 查找所有栏目
-	List<Channel> findAll();
-	
-	Channel findByTitle(String title);
-	
+	// 获取栏目的相册数量
+	int getAmount(Channel channel);
+
 }

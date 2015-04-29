@@ -15,7 +15,7 @@
 		lazy-init="true">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- 指定连接数据库的URL -->
-		<property name="url" value="jdbc:mysql://localhost/test" />
+		<property name="url" value="jdbc:mysql://localhost/newspicture" />
 		<!-- 指定连接数据库的用户名 -->
 		<property name="username" value="root" />
 		<!-- 指定连接数据库的密码 -->
@@ -45,27 +45,37 @@
 				<prop key="hibernate.connection.autocommit">true</prop>
 			</props>
 		</property>
+	<property name="mappingResources">
+			<list>
+				<value>com/np/po/User.hbm.xml</value>
+				<value>com/np/po/Photo.hbm.xml</value>
+				<value>com/np/po/Channel.hbm.xml</value>
+				<value>com/np/po/Album.hbm.xml</value>
+				<value>com/np/po/Admin.hbm.xml</value>
+			</list>
+		</property>
 	</bean>
+	
 	<!-- 配置UserDao组件 -->
-	<bean id="UserDao" class="com.np.dao.impl.UserDaoimpl">
+	<bean id="UserDao" class="com.np.dao.UserDaoimpl">
 		<!-- 注入SessionFactory引用 -->
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- 配置PhotoDao组件 -->
-	<bean id="PhotoDao" class="com.np.dao.impl.PhotoDaoimpl">
+	<bean id="PhotoDao" class="com.np.dao.PhotoDaoimpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- 配置AlbumDao组件 -->
-	<bean id="AlbumDao" class="com.np.dao.impl.AlbumDaoimpl">
+	<bean id="AlbumDao" class="com.np.dao.AlbumDaoimpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- 配置ChannelDao组件 -->
-	<bean id="ChannelDao" class="com.np.dao.impl.ChannelDaoimpl">
+	<bean id="ChannelDao" class="com.np.dao.ChannelDaoimpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- 配置NService业务逻辑组件 -->
 	<bean id="NService" lazy-init="true"
-		class="com.np.service.impl.NServiceImpl">
+		class="com.np.service.NServiceImpl">
 		<!-- 为业务逻辑组件注入4个DAO组件 -->
 		<property name="UserDao" ref="UserDao" />
 		<property name="PhotoDao" ref="PhotoDao" />

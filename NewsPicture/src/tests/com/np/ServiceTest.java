@@ -31,21 +31,20 @@ public class ServiceTest {
 	public void testAll() {
 		// 栏目
 		Channel channel = new Channel();
-		channel.setTitle("first channel");
+		channel.setTitle("2 channel");
 		channelDao.save(channel);
 		
 		
 		// 用户
-		User user = new User();
-		user.setUsername("pelo");
+		User user = new User(null, null);
+		user.setUsername("ddd");
 		user.setPassword("world");
 		userDao.save(user);
 		
 		
 		// 相册
 		Album album = new Album();
-		album.setTitle("myalbum");
-		
+		album.setTitle("ddd");
 		album.setUser(user);
 		album.setChannel(channel);
 		albumDao.save(album);
@@ -53,11 +52,9 @@ public class ServiceTest {
 		
 		// 照片
 		Photo photo = new Photo();
-		photo.setTitle("my-photo");
-		photo.setFileName("x.jpg");
+		photo.setTitle("ddo");
 		photo.setKeyword("life");
-		
-		photo.setUser(user);
+		photo.setCover(false);
 		photo.setAlbum(album);
 		photoDao.save(photo);
 	}

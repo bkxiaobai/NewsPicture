@@ -1,98 +1,113 @@
 package com.np.service;
 
+import com.np.vo.AlbumVO;
+import com.np.vo.PhotoVO;
+import com.np.vo.ChannelVO;
+import com.np.vo.UserVO;
+import com.np.exception.NException;
 import java.util.List;
 
-import com.np.po.Album;
-import com.np.po.Channel;
-import com.np.po.Photo;
-import com.np.po.User;
-
 public interface NService {
-	/**
-	 * 验证用户登录是否成功。
-	 * 
-	 * @param username
-	 *            登录的用户名
-	 * @param password
-	 *            登录的密码
-	 * @return 用户登录的结果，成功返回true，否则返回false
-	 */
-	boolean userLogin(String username, String password);
 
-	/**
-	 * 注册新用户
-	 * 
-	 * @param username
-	 *            新注册用户的用户名
-	 * @param password
-	 *            新注册用户的密码
-	 * @return 新注册用户的主键
-	 */
-	int registUser(String username, String password);
+	// 添加相册
+	void addAlbum(String title, String date, long times, Integer userId,
+			Integer channelId) throws NException;
 
-	/**
-	 * 添加照片
-	 * 
-	 * @param user
-	 *            添加相片的用户
-	 * @param title
-	 *            添加相片的标题
-	 * @param fileName
-	 *            新增相片在服务器上的文件名
-	 * @param keyword
-	 *            添加相片的关键词
-	 * @return 新添加相片的主键
-	 */
-	int addPhoto(String title, String fileName, String keyword,
-			String username, int album_id);
+	// 跟新相册
+	void updateAlbum(String title, Integer channelId, Integer albumId)
+			throws NException;
 
-	/**
-	 * 根据用户获得该用户的所有相片
-	 * 
-	 * @param user
-	 *            当前用户
-	 * @param pageNo
-	 *            页码
-	 * @return 返回属于该用户、指定页的相片
-	 */
-	List<Photo> getPhotoByUser(User user, int pageNo);
+	// 跟新点击数
+	void updateTimes(Integer albumId) throws NException;
 
-	List<Photo> getPhotoByAlbum(Album album, int pageNo);
+	// 检查指定的相册是否含有相片
+	boolean checkHavePhotos(int albumId) throws NException;
 
-	/**
-	 * 添加图集
-	 * 
-	 * @param user
-	 *            添加图集的用户
-	 * @param title
-	 *            添加图集的标题
-	 * @return 新添加图集的主键
-	 */
-	int addAlbum(String user,int channel_id, String title);
+	// 删除相册
+	void deleteAlbum(int albumId) throws NException;
 
-	int addChannel(String title);
+	// 检查指定id的相册是否存在
+	boolean checkAlbum(Integer id) throws NException;
 
-	/**
-	 * 根据用户获得该用户的所有图集
-	 * 
-	 * @param user
-	 *            当前用户
-	 * @param pageNo
-	 *            页码
-	 * @return 返回属于该用户、指定页的相片
-	 */
-	List<Album> getAlbumByUser(User user, int pageNo);
+	// 根据id获取相册资料
+	AlbumVO getAlbum(Integer id) throws NException;
 
-	List<Album> getAlbumByChannel(Channel channel, int pageNo);
+	// 设置相册封面
+	void setCover(Integer albumId, Integer photoId) throws NException;
 
-	List<Channel> getChannel();
+	// 用户登录
+	boolean userLogin(String name, String pass) throws NException;
 
-	/**
-	 * 验证用户名是否可用，即数据库里是否已经存在该用户名
-	 * 
-	 * @param username
-	 *            需要校验的用户名
-	 * @return 如果该用户名可用，返回true，否则返回false。
-	 */
-	boolean validateName(String username);
+	// 获取指定用户的相册列表
+	List<AlbumVO> getUserAlbums(int userId, int first, int pageSize)
+			throws NException;
+
+	// 获取指定用户的相册数量
+	int getAlbumCount(int userId) throws NException;
+
+	// 根据id获得指定相册的信息
+	AlbumVO getUserAlbum(Integer id) throws NException;
+
+	// 获取指定ID的用户信息
+	UserVO getUserInfo(int userId) throws NException;
+
+	// 判断指定用户名的用户是否存在
+	boolean checkUserName(String username) throws NException;
+
+	// 添加用户
+	int addUser(String username, String password) throws NException;
+
+	// 根据栏目来获取相册列表
+	List<AlbumVO> getAlbumsByChannel(Integer channelId, int first, int pageSize)
+			throws NException;
+
+	// 获取指定栏目下的相册数量
+	int getAlbumCount(Integer channelId) throws NException;
+
+	// 获取指定栏目ID对应相册分类信息
+	ChannelVO getChannel(Integer channelId) throws NException;
+
+	// 根据相册获取该相册包含的相片。
+	List<PhotoVO> getPhotos(Integer albumId, int first, int pageCount)
+			throws NException;
+
+	// 获取指定相册下包含相片数量
+	int getCount(Integer albumId) throws NException;
+
+	// 增加一张相片
+	void addPhoto(String title, String keyword, long times, String picUrl,
+			String bigPicUrl, String smallPicUrl, String date, boolean cover,
+			Integer albumId) throws NException;
+
+	// 判断指定ID对应的相片是否存在。
+	boolean checkPhoto(Integer photoId) throws NException;
+
+	// 修改相片信息
+	void updatePhoto(String title, String keyword, Integer albumId,
+			Integer photoId) throws NException;
+
+	// 更新点击数
+	void updatePhotoTimes(Integer photoId) throws NException;
+
+	// 删除指定相片
+	void deletePhoto(int photoId) throws NException;
+
+	// 判断指定ID获取对应的相片
+	PhotoVO getPhoto(Integer photoId) throws NException;
+
+	// 获取相片所属于的相册分类
+
+	ChannelVO getChannelByPhoto(Integer photoId) throws NException;
+
+	// 获取相册所属于的相册大类
+	ChannelVO getChannelByAlbum(Integer AlbumId) throws NException;
+
+	// 获取系统中全部相册分类
+	List<ChannelVO> getAllChannel() throws NException;
+
+	// 获得制定用户的相册
+	List<AlbumVO> getMyAlbum(Integer userId) throws NException;
+
+	// 修改用户的密码
+	void updateUser(Integer id, String password) throws NException;
 }

@@ -1,8 +1,6 @@
 package tests.com.np;
 
-import java.util.List;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,33 +24,15 @@ public class PhotoTest {
 	@Autowired
 	PhotoDao photoDao;
 
-	@Test
-	public void testFindByAlbum(){
-		List<Photo> photos = photoDao.findByAlbum(1,8);
-		for (Photo photo : photos) {
-			System.out.println(photo.getTitle());
-		}
-		System.out.println("haaa");
-	}
 	
-	@Test
-	public void testFindAll() {
+	
 
-		List<Photo> photos = photoDao.findAll();
-		for (Photo photo : photos) {
-			System.out.println(photo.getTitle());
-		}
-		System.out.println("haaa");
-    }
 	
 
 	@Test
 	public void testCreate() {
 		Photo photo = new Photo();
-		photo.setUser(userDao.findByName("hello"));
-		photo.setAlbum(albumDao.findById(1));
 		photo.setTitle("p3");
-		photo.setFileName("02");
 		photo.setKeyword("·ç¾°");
 		//photoDao.save(photo);
 		System.out.println("create");
@@ -61,17 +41,15 @@ public class PhotoTest {
 
 	@Test
 	public void testDelete() {
-		Photo photo = photoDao.findById(1);
-		Assert.assertNotNull(photo);
+
+
 		// photoDao.delete(photo);
 	}
 
 	@Test
 	public void testupdate() {
-		Photo photo = photoDao.findById(3);
-		photo.setTitle("p1.1");
-		photo.setFileName("04");
-		photo.setKeyword("Æû³µ");
+
+
 		//photoDao.update(photo);
 	}
 

@@ -1,81 +1,89 @@
 package com.np.po;
 
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.np.po.User;
 import com.np.po.Channel;
+import com.np.po.User;
 
-@Entity(name="album")
-public class Album {
-	// 图集ID
-    @Id @GeneratedValue(strategy=GenerationType.AUTO) 
-	private Integer id;
-	// 图集名称
-    @Column(length=255, nullable=false)  
+import java.io.Serializable;
+
+public class Album implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private int id;
 	private String title;
-	// 保存该图集所属的用户
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	private String date;
+	private long times;
 	private User user;
-	// 保存该图集所属的栏目
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "channel_id", nullable = false)
 	private Channel channel;
+	private Set<Photo> photos = new HashSet<Photo>();
 
-
-	// 无参数的构造器
 	public Album() {
 	}
 
-	// 初始化全部属性的构造器
-	public Album(Integer id, String title, User user,Channel channel) {
+	public Album(String title, String date, long times, User user,
+			Channel channel) {
+		setTitle(title);
+		setDate(date);
+		setTimes(times);
+		setUser(user);
+		setChannel(channel);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
 		this.id = id;
-		this.title = title;
-		this.user = user;
-		this.channel = channel;
 	}
 
-	// id属性的setter和getter方法
-	public void setId(Integer id) {
-		this.id = id;
+	public String getTitle() {
+		return title;
 	}
 
-	public Integer getId() {
-		return this.id;
-	}
-
-	// title属性的setter和getter方法
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public String getTitle() {
-		return this.title;
+	public String getDate() {
+		return date;
 	}
 
-	// user属性的setter和getter方法
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public long getTimes() {
+		return times;
+	}
+
+	public void setTimes(long times) {
+		this.times = times;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public User getUser() {
-		return this.user;
-	}
-
-	// column属性的setter和getter方法
 	public Channel getChannel() {
-		return this.channel;
+		return channel;
 	}
 
 	public void setChannel(Channel channel) {
 		this.channel = channel;
+	}
+
+	public Set<Photo> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(Set<Photo> photos) {
+		this.photos = photos;
 	}
 }

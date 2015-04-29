@@ -1,5 +1,5 @@
 package tests.com.np;
-import org.junit.Assert;
+//import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +34,7 @@ public class ChannelTest {
 		}
 
 
-		@Test
+		/**@Test
 		public void testupdate() {
 			Channel channel = channelDao.findByTitle("first channel");
 			channel.setTitle("·ç¾°");
@@ -47,7 +47,7 @@ public class ChannelTest {
 			Assert.assertNotNull(channel);
 			channelDao.delete(channel);
 		}
-
+**/
 
 		@BeforeClass
 		public static void before() {

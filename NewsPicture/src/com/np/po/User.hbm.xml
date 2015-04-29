@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.np.po">
+   
+	
+	<class name="User" table="user">
+        <id name="id" column="Id">
+            <generator class="identity"/>
+        </id>
+        <property name="username" column="username" unique="true"/>
+        <property name="password" column="password"/>
+		<set name="albums" inverse="true">
+			<key column="Id"/>
+			<one-to-many class="Album"/>
+		</set>
+		<!-- inverse属性 指定对于一对多关联关系，1的一端不能控制关联关系 这是为了更好的保证性能 -->
+    </class>
+</hibernate-mapping>

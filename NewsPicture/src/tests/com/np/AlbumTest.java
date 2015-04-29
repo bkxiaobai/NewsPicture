@@ -1,9 +1,9 @@
 package tests.com.np;
 
-import java.util.List;
+//import java.util.List;
 
 import org.junit.BeforeClass;
-import org.junit.Test;
+//import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,7 +13,7 @@ import com.np.dao.AlbumDao;
 import com.np.dao.ChannelDao;
 import com.np.dao.PhotoDao;
 import com.np.dao.UserDao;
-import com.np.po.Album;
+//import com.np.po.Album;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
@@ -28,7 +28,7 @@ public class AlbumTest {
 	@Autowired
 	PhotoDao photoDao;
 
-	@Test
+	/**@Test
 	public void testFindAll() {
 
 		List<Album> albums = albumDao.findAll();
@@ -53,7 +53,7 @@ public class AlbumTest {
 		Album album = new Album();
 		album.setChannel(channelDao.findById(1));
 		album.setUser(userDao.findByName("hello"));
-		album.setTitle("細細");
+		album.setTitle("最最");
 		albumDao.save(album);
 		System.out.println("create");
 
@@ -62,7 +62,7 @@ public class AlbumTest {
 	@Test
 	public void testupdate() {
 		Album album = albumDao.findById(1);
-		album.setTitle("最最");
+		album.setTitle("込込");
 		albumDao.update(album);
 	}
 
@@ -71,7 +71,7 @@ public class AlbumTest {
 		Album album = albumDao.findById(1);
 		albumDao.delete(album);
 	}
-
+**/
 	@BeforeClass
 	public static void before() {
 	}
