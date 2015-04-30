@@ -27,10 +27,10 @@ public class AdminDaoImpl extends HibernateDaoSupport implements AdminDao {
 		getHibernateTemplate().delete(admin);
 	}
 
-	public Admin findByNameAndPass(String username, String password) {
+	public Admin findByNameAndPass(String name, String pass) {
 		Admin admin = (Admin) getHibernateTemplate().find(
-				"from admin as a where a.name = ? and a.pass = ?", username,
-				password);
+				"from admin as a where a.name = ? and a.pass = ?", name,
+				pass);
 		return admin;
 	}
 

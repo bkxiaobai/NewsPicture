@@ -25,7 +25,7 @@ public class UserTest {
 	@Test
 	public void testCreate() {
 		User user = new User(null, null);
-		user.setUsername("bkxiaobai");
+		user.setUsername("bkxiao");
 		user.setPassword("456");
 		userDao.save(user);
 		System.out.println("create");
@@ -35,7 +35,7 @@ public class UserTest {
 
 	@Test
 	public void testupdate() {
-		User user = userDao.findByName("usertest");
+		User user = userDao.findByName("bkxiaobai");
 		user.setPassword("1992");
 		userDao.update(user);
 	}
