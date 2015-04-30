@@ -56,14 +56,14 @@ public class NServiceImpl implements NService
 	 * @param userId 相册的创建人ID
 	 * @param channelId 相册所属的相册分类ID
 	 */
-	public void addAlbum(String title,  String date, long times, Integer userId, Integer channelId)
+	public void addAlbum(String title, String keyword, String date, long times, Integer userId, Integer channelId)
 		throws NException
 	{
 		try
 		{
 			User user = ud.get(userId);
 			Channel channel = cd.get(channelId);
-			Album album = new Album(title, date, times, user, channel);
+			Album album = new Album(title, keyword, date, times, user, channel);
 			ad.save(album);
 		}
 		catch (Exception e)
@@ -80,7 +80,7 @@ public class NServiceImpl implements NService
 	 * @param kindId 需要将相册修改为的相册分类。
 	 * @param albumId 相册ID
 	 */
-	public void updateAlbum(String title, Integer channelId, Integer albumId)throws NException
+	public void updateAlbum(String title,String keyword, Integer channelId, Integer albumId)throws NException
 	{
 		try
 		{
@@ -88,6 +88,7 @@ public class NServiceImpl implements NService
 			Channel channel = cd.get(channelId);
 			album.setChannel(channel);
 			album.setTitle(title);
+			album.setKeyword(keyword);
 			ad.update(album);			
 		}
 		catch (Exception e)
@@ -777,21 +778,21 @@ public class NServiceImpl implements NService
 		return uvo;
 	}
 
-	private AlbumVO fillAlbumVO(Album al, Photo photo)throws Exception
+	private AlbumVO fillAlbumVO(Album album, Photo photo)throws Exception
 	{
 		AlbumVO avo = null;
-		avo = new AlbumVO(al.getId(), al.getTitle(), al.getDate(), 
-			al.getTimes(), al.getUser().getId(), al.getUser().getUsername(), 
-			al.getChannel().getId(), al.getChannel().getTitle(), photo.getId(), photo.getSmallPicUrl());
+		avo = new AlbumVO(album.getId(), album.getTitle(),album.getKeyword(), album.getDate(), 
+			album.getTimes(), album.getUser().getId(), album.getUser().getUsername(), 
+			album.getChannel().getId(), album.getChannel().getTitle(), photo.getId(), photo.getSmallPicUrl());
 		return avo;
 	}
 
-	private AlbumVO fillAlbumVO(Album al)throws Exception
+	private AlbumVO fillAlbumVO(Album album)throws Exception
 	{
 		AlbumVO avo = null;
-		avo = new AlbumVO(al.getId(), al.getTitle(),  al.getDate(), 
-			al.getTimes(), al.getUser().getId(), al.getUser().getUsername(), 
-			al.getChannel().getId(), al.getChannel().getTitle());
+		avo = new AlbumVO(album.getId(), album.getTitle(), album.getKeyword(),  album.getDate(), 
+			album.getTimes(), album.getUser().getId(), album.getUser().getUsername(), 
+			album.getChannel().getId(), album.getChannel().getTitle());
 		return avo;
 	}
 

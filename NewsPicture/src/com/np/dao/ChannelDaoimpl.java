@@ -21,7 +21,7 @@ public class ChannelDaoimpl extends HibernateDaoSupport implements ChannelDao {
 	public void update(Channel channel) {
 		getHibernateTemplate().update(channel);
 	}
-
+	
 	public void delete(int id) {
 		getHibernateTemplate().delete(
 				getHibernateTemplate().get(Channel.class, new Integer(id)));

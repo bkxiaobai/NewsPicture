@@ -10,11 +10,11 @@ import java.util.List;
 public interface NService {
 
 	// 添加相册
-	void addAlbum(String title, String date, long times, Integer userId,
+	void addAlbum(String title,String keyword, String date, long times, Integer userId,
 			Integer channelId) throws NException;
 
 	// 跟新相册
-	void updateAlbum(String title, Integer channelId, Integer albumId)
+	void updateAlbum(String title,String keyword, Integer channelId, Integer albumId)
 			throws NException;
 
 	// 跟新点击数

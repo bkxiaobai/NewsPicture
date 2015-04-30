@@ -10,6 +10,7 @@
             <generator class="identity"/>
         </id>
         <property name="title" column="title"/>
+        <property name="keyword" column="keyword"/>
         <property name="date" column="date"/>
         <property name="times" column="times"/>
         <!-- lazy ÊôÐÔ ¹Ø±ÕÑÓ³Ù¼ÓÔØ -->

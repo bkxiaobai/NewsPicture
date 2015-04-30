@@ -7,6 +7,7 @@ public class AlbumVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String title;
+	private String keyword;
 	private String date;
 	private long times;
 	private int userId;
@@ -19,11 +20,12 @@ public class AlbumVO implements Serializable {
 	public AlbumVO() {
 	}
 
-	public AlbumVO(int id, String title, String date, long times, int userId,
-			String user, int channelId, String channeltitle, int coverId,
-			String coverUrl) {
+	public AlbumVO(int id, String title, String keyword, String date,
+			long times, int userId, String user, int channelId,
+			String channeltitle, int coverId, String coverUrl) {
 		setId(id);
 		setTitle(title);
+		setKeyword(keyword);
 		setDate(date);
 		setTimes(times);
 		setUserId(userId);
@@ -34,10 +36,12 @@ public class AlbumVO implements Serializable {
 		setCoverUrl(coverUrl);
 	}
 
-	public AlbumVO(int id, String title, String date, long times, int userId,
-			String user, int channelId, String channelTitle) {
+	public AlbumVO(int id, String title, String keyword, String date,
+			long times, int userId, String user, int channelId,
+			String channelTitle) {
 		setId(id);
 		setTitle(title);
+		setKeyword(keyword);
 		setDate(date);
 		setTimes(times);
 		setUserId(userId);
@@ -124,6 +128,14 @@ public class AlbumVO implements Serializable {
 
 	public void setCoverUrl(String coverUrl) {
 		this.coverUrl = coverUrl;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 }

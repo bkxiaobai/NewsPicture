@@ -28,7 +28,7 @@ public class UserDaoimpl extends HibernateDaoSupport implements UserDao {
 
 	public User findByNameAndPass(String username, String password) {
 		User user = (User) getHibernateTemplate().find(
-				"from user as u where u.username = ? and u.passwprd = ?",
+				"from user as u where u.username = ? and u.password = ?",
 				username, password);
 		return user;
 	}

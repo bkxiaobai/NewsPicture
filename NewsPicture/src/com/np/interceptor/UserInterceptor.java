@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import org.apache.struts.action.*;
 import com.np.vo.UserVO;
 
-public class ClientInterceptor implements MethodInterceptor
+public class UserInterceptor implements MethodInterceptor
 {
 	public Object invoke(MethodInvocation invocation)throws Throwable
 	{

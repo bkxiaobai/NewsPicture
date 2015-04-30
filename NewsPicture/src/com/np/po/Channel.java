@@ -18,9 +18,8 @@ public class Channel implements Serializable {
 	}
 
 	// 初始化全部属性的构造器
-	public Channel(Integer id, String title) {
-		this.id = id;
-		this.title = title;
+	public Channel(String title) {
+		setTitle(title);
 	}
 
 	// id属性的setter和getter方法

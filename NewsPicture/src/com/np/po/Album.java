@@ -13,6 +13,7 @@ public class Album implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String title;
+	private String keyword;
 	private String date;
 	private long times;
 	private User user;
@@ -22,9 +23,10 @@ public class Album implements Serializable {
 	public Album() {
 	}
 
-	public Album(String title, String date, long times, User user,
+	public Album(String title,String keyword, String date, long times, User user,
 			Channel channel) {
 		setTitle(title);
+		setKeyword(keyword);
 		setDate(date);
 		setTimes(times);
 		setUser(user);
@@ -85,5 +87,13 @@ public class Album implements Serializable {
 
 	public void setPhotos(Set<Photo> photos) {
 		this.photos = photos;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 }

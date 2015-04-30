@@ -19,6 +19,9 @@ public interface ChannelDao {
 	// 删除指定栏目
 	void delete(Channel channel);
     
+	//id删除
+	void delete(int id);
+	
 	//查询所有栏目
 	List<Channel> getAll();
 	
