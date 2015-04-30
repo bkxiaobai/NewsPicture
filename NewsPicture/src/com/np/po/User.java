@@ -4,15 +4,31 @@ import java.util.HashSet;
 import java.util.Set;
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity(name = "user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	// 用户ID
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	// 用户名
+	@Column(length = 255, unique = true, nullable = false)
 	private String username;
 	// 用户密码
+	@Column(length = 255, nullable = false)
 	private String password;
+	// 用户相册列表,级联操作
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Album> albums = new HashSet<Album>();
 
 	public User(String username, String password) {
