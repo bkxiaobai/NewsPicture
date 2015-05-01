@@ -63,11 +63,6 @@
 	<bean id="ChannelDao" class="com.np.dao.ChannelDaoimpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<!-- 配置AdminDao组件 -->
-	<bean id="AdminDao" class="com.np.dao.AdminDaoimpl">
-		<!-- 注入SessionFactory引用 -->
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
 	<!-- 配置NService业务逻辑组件 -->
 	<bean id="NService" lazy-init="true" class="com.np.service.NServiceImpl">
 		<!-- 为业务逻辑组件注入4个DAO组件 -->
@@ -80,7 +75,7 @@
 	<!-- 配置AService业务逻辑组件 -->
 	<bean id="AService" lazy-init="true" class="com.np.service.AServiceImpl">
 		<!-- 为业务逻辑组件注入4个DAO组件 -->
-		<property name="AdminDao" ref="AdminDao" />
+		<property name="UserDao" ref="UserDao" />
 		<property name="ChannelDao" ref="ChannelDao" />
 	</bean>
 	<!-- 配置Hibernate的局部事务管理器，使用HibernateTransactionManager类 -->

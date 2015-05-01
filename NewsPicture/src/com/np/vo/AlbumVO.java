@@ -1,6 +1,7 @@
 package com.np.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class AlbumVO implements Serializable {
 
@@ -8,7 +9,7 @@ public class AlbumVO implements Serializable {
 	private int id;
 	private String title;
 	private String keyword;
-	private String date;
+	private Date date;
 	private long times;
 	private int userId;
 	private String user;
@@ -20,13 +21,13 @@ public class AlbumVO implements Serializable {
 	public AlbumVO() {
 	}
 
-	public AlbumVO(int id, String title, String keyword, String date,
+	public AlbumVO(int id, String title, String keyword, Date date2,
 			long times, int userId, String user, int channelId,
 			String channeltitle, int coverId, String coverUrl) {
 		setId(id);
 		setTitle(title);
 		setKeyword(keyword);
-		setDate(date);
+		setDate(date2);
 		setTimes(times);
 		setUserId(userId);
 		setUser(user);
@@ -36,7 +37,7 @@ public class AlbumVO implements Serializable {
 		setCoverUrl(coverUrl);
 	}
 
-	public AlbumVO(int id, String title, String keyword, String date,
+	public AlbumVO(int id, String title, String keyword, Date date,
 			long times, int userId, String user, int channelId,
 			String channelTitle) {
 		setId(id);
@@ -66,11 +67,11 @@ public class AlbumVO implements Serializable {
 		this.title = title;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

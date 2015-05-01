@@ -1,19 +1,18 @@
 package com.np.service;
 
-import com.np.service.AService;
-import com.np.exception.NException;
-import com.np.dao.AdminDao;
 import com.np.dao.ChannelDao;
-import com.np.po.Admin;
+import com.np.dao.UserDao;
+import com.np.exception.NException;
 import com.np.po.Channel;
+import com.np.po.User;
 
 public class AServiceImpl implements AService {
-	private AdminDao ad;
+	private UserDao ud;
 
 	private ChannelDao cd;
 
-	public void setAd(AdminDao ad) {
-		this.ad = ad;
+	public void setAd(UserDao ud) {
+		this.ud = ud;
 	}
 
 	public void setCd(ChannelDao cd) {
@@ -22,8 +21,8 @@ public class AServiceImpl implements AService {
 
 	public boolean adminlogin(String name, String pass) throws NException {
 		try {
-			Admin admin = ad.findByNameAndPass(name, pass);
-			if (admin == null) {
+			User user = ud.findByNameAndPass(name, pass);
+			if (user == null) {
 				return false;
 			}
 			return true;

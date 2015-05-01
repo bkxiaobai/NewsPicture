@@ -1,22 +1,23 @@
 package com.np.service;
 
-import com.np.service.NService;
-import com.np.dao.PhotoDao;
-import com.np.dao.UserDao;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 import com.np.dao.AlbumDao;
 import com.np.dao.ChannelDao;
+import com.np.dao.PhotoDao;
+import com.np.dao.UserDao;
+import com.np.exception.NException;
+import com.np.po.Album;
+import com.np.po.Channel;
 import com.np.po.Photo;
 import com.np.po.User;
-import com.np.po.Channel;
-import com.np.po.Album;
-import com.np.vo.PhotoVO;
-import com.np.vo.UserVO;
 import com.np.vo.AlbumVO;
 import com.np.vo.ChannelVO;
-import com.np.exception.NException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
+import com.np.vo.PhotoVO;
+import com.np.vo.UserVO;
 
 public class NServiceImpl implements NService
 {
@@ -56,7 +57,7 @@ public class NServiceImpl implements NService
 	 * @param userId 相册的创建人ID
 	 * @param channelId 相册所属的相册分类ID
 	 */
-	public void addAlbum(String title, String keyword, String date, long times, Integer userId, Integer channelId)
+	public void addAlbum(String title, String keyword, Date date, long times, Integer userId, Integer channelId)
 		throws NException
 	{
 		try
@@ -565,7 +566,7 @@ public class NServiceImpl implements NService
 	 * @param albumId 该相片需要添加到的相册ID
 	 */
 	public void addPhoto(String title, String keyword, long times, String picUrl, String bigPicUrl, String smallPicUrl, 
-		String date, boolean cover, Integer albumId)throws NException
+		Date date, boolean cover, Integer albumId)throws NException
 	{
 		try
 		{

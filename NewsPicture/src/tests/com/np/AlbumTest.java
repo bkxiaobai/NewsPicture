@@ -3,8 +3,10 @@ package tests.com.np;
 //import java.util.List;
 
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 //import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,6 +17,7 @@ import com.np.dao.PhotoDao;
 import com.np.dao.UserDao;
 //import com.np.po.Album;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 public class AlbumTest {

@@ -4,7 +4,6 @@ import com.np.exception.NException;
 
 public interface AService  
 {
-	boolean adminlogin(String name, String pass)throws NException;
 
 	void addChannel(String title)throws NException;
 

@@ -1,6 +1,9 @@
 package com.np.dao;
 
+import java.util.List;
+
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+
 import com.np.po.User;
 
 public class UserDaoimpl extends HibernateDaoSupport implements UserDao {
@@ -27,15 +30,17 @@ public class UserDaoimpl extends HibernateDaoSupport implements UserDao {
 	}
 
 	public User findByNameAndPass(String username, String password) {
-		User user = (User) getHibernateTemplate().find(
+		@SuppressWarnings("unchecked")
+		List<User> users = (List<User>) getHibernateTemplate().find(
 				"from user as u where u.username = ? and u.password = ?",
 				username, password);
-		return user;
+		return users.size() == 0 ? null : users.get(0);
 	}
 
 	public User findByName(String username) {
-		User user = (User) getHibernateTemplate().find(
+		@SuppressWarnings("unchecked")
+		List<User> users = (List<User>) getHibernateTemplate().find(
 				"from user u where u.username = ?", username);
-		return user;
+		return users.size() == 0 ? null : users.get(0);
 	}
 }

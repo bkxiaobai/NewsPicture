@@ -1,5 +1,6 @@
 package com.np.vo;
 import java.io.Serializable;
+import java.util.Date;
 
 public class PhotoVO implements Serializable
 {
@@ -12,7 +13,7 @@ public class PhotoVO implements Serializable
 	private String picUrl;
 	private String bigPicUrl;
 	private String smallPicUrl;
-	private String date;
+	private Date date;
 	private boolean cover;
 	private int albumId;
 	private String albumTitle;
@@ -22,7 +23,7 @@ public class PhotoVO implements Serializable
 	}
 
 	public PhotoVO(int id, String title, String keyword, long times, String picUrl, String bigPicUrl, 
-		String smallPicUrl, String date, boolean cover, int albumId, String albumTitle)
+		String smallPicUrl, Date date, boolean cover, int albumId, String albumTitle)
 	{
 		setId(id);
 		setTitle(title);
@@ -93,11 +94,11 @@ public class PhotoVO implements Serializable
 		this.smallPicUrl = smallPicUrl;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

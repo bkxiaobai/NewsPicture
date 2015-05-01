@@ -27,10 +27,23 @@ public class User implements Serializable {
 	// 用户密码
 	@Column(length = 255, nullable = false)
 	private String password;
+	
+	@Column()
+	private boolean admin;
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
 	// 用户相册列表,级联操作
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Album> albums = new HashSet<Album>();
-
+	public User() {
+		
+	}
 	public User(String username, String password) {
 		setUsername(username);
 		setPassword(password);

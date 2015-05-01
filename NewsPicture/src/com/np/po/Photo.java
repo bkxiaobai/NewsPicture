@@ -1,13 +1,15 @@
 package com.np.po;
 
 import java.io.Serializable;
+import java.util.Date;
+
 //标准注解
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -41,7 +43,7 @@ public class Photo implements Serializable {
 	private String smallPicUrl;
 	// 添加图片时间
 	@Temporal(value = TemporalType.DATE)
-	private String date;
+	private Date date;
 	// 是否为封面
 	@Column()
 	private boolean cover;
@@ -51,7 +53,7 @@ public class Photo implements Serializable {
 	private Album album;
 
 	public Photo(String title, String keyword, long times, String picUrl,
-			String bigPicUrl, String smallPicUrl, String date, boolean cover,
+			String bigPicUrl, String smallPicUrl, Date date, boolean cover,
 			Album album) {
 		setTitle(title);
 		setKeyword(keyword);
@@ -120,11 +122,11 @@ public class Photo implements Serializable {
 		this.smallPicUrl = smallPicUrl;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

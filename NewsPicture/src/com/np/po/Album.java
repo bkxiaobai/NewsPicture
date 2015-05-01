@@ -1,5 +1,7 @@
 package com.np.po;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,10 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.np.po.Channel;
-import com.np.po.User;
-import java.io.Serializable;
-
 @Entity(name = "album")
 public class Album implements Serializable {
 
@@ -32,11 +30,11 @@ public class Album implements Serializable {
 	@Column(length = 255, nullable = false)
 	private String title;
 	// 相册关键词
-	@Column(length = 255, nullable = false)
+	@Column(length = 255)
 	private String keyword;
 	// 添加相册时间
 	@Temporal(value = TemporalType.DATE)
-	private String date;
+	private Date date;
 	// 图片查看次数
 	@Column()
 	private long times;
@@ -55,7 +53,7 @@ public class Album implements Serializable {
 	public Album() {
 	}
 
-	public Album(String title, String keyword, String date, long times,
+	public Album(String title, String keyword, Date date, long times,
 			User user, Channel channel) {
 		setTitle(title);
 		setKeyword(keyword);
@@ -81,11 +79,11 @@ public class Album implements Serializable {
 		this.title = title;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
