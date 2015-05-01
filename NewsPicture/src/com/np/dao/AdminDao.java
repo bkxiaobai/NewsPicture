@@ -41,5 +41,5 @@ public interface AdminDao
 	 * @param pass 需要查询管理员的密码。
 	 * @return 指定管理员名和密码对应管理员的主键值。
 	 */
-	Admin findByNameAndPass(String name, String pass);
+	Integer findByNameAndPass(String name, String pass);
 }

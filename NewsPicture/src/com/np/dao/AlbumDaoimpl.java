@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate4.HibernateCallback;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.np.po.User;
 import com.np.po.Album;
@@ -36,7 +36,7 @@ public class AlbumDaoimpl extends HibernateDaoSupport implements AlbumDao {
 			final int pageSize) {
 		@SuppressWarnings("unchecked")
 		List<Album> result = (List<Album>) getHibernateTemplate().execute(
-				new HibernateCallback<Object>() {
+				new HibernateCallback() {
 					public Object doInHibernate(Session sess)
 							throws HibernateException {
 						List<?> tmp = sess
@@ -46,15 +46,14 @@ public class AlbumDaoimpl extends HibernateDaoSupport implements AlbumDao {
 								.setMaxResults(pageSize).list();
 						return tmp;
 					}
-				}
-				);
+				});
 		return result;
 	}
 
 	public List<Album> getAllByUser(final User user) {
 		@SuppressWarnings("unchecked")
-		List<Album> result = (List<Album>)getHibernateTemplate().execute(
-				new HibernateCallback<Object>() {
+		List<Album> result = (List<Album>) getHibernateTemplate().execute(
+				new HibernateCallback() {
 					public Object doInHibernate(Session session)
 							throws HibernateException {
 						List<?> tmp = session

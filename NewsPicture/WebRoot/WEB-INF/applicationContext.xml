@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- 指定Spring配置文件的Schema信息 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8" />
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="user" value="root" />
+		<property name="password" value="921118" />
+		<property name="maxPoolSize" value="40" />
+		<property name="minPoolSize" value="1" />
+		<property name="initialPoolSize" value="1" />
+		<property name="maxIdleTime" value="20" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+	</bean>
+
+
+	<!-- 配置dao -->
+	<bean name="daoTemplate" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean name="adminDao" class="com.np.dao.AdminDaoImpl" parent="daoTemplate" />
+	<bean name="albumDao" class="com.np.dao.AlbumDaoImpl" parent="daoTemplate" />
+	<bean name="userDao" class="com.np.dao.UserDaoImpl" parent="daoTemplate" />
+	<bean name="channelDao" class="com.np.dao.ChannelDaoImpl" parent="daoTemplate" />
+	<bean name="photoDao" class="com.np.dao.PhotoDaoImpl" parent="daoTemplate" />
+
+
+	<!-- 业务逻辑Bean -->
+	<!-- 前台用户 -->
+	<bean id="nService" class="com.np.service.NServiceImpl">
+		<property name="ad" ref="albumDao" />
+		<property name="cd" ref="channelDao" />
+		<property name="pd" ref="photoDao" />
+		<property name="ud" ref="userDao" />
+
+	</bean>
+	<!-- 后台管理员 -->
+	<bean id="aService" class="com.np.service.AServiceImpl">
+		<property name="ad" ref="adminDao" />
+		<property name="cd" ref="channelDao" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<!-- 事务拦截器 -->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 配置action -->
+	<!--后台管理员登录 -->
+	<bean name="/adminLogin" class="com.np.action.AdminLoginAction">
+		<property name="as" ref="aService" />
+	</bean>
+
+	<!--进入首页的action -->
+	<bean name="/info" class="com.np.action.IndexAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--客户登录 -->
+	<bean name="/userLogin" class="com.np.action.UserLoginAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--客户注册时检查用户名 -->
+	<bean name="/checkName" class="com.np.action.CheckUserNameAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--注册 -->
+	<bean name="/userReg" class="com.np.action.UserRegAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<bean name="/albumlist" class="com.np.action.AlbumListAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--登录后相册分页 -->
+	<bean name="/albumpage" class="com.np.action.AlbumPageAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--添加新相册 -->
+	<bean name="/addalbum" class="com.np.action.AddAlbumAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--修改用户密码 -->
+	<bean name="/updatepass" class="com.np.action.UpdatePassAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--进入修改相册信息界面 -->
+	<bean name="/viewalbuminfo" class="com.np.action.ViewAlbumInfoAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--修改相册信息 -->
+	<bean name="/updatealbumInfo" class="com.np.action.UpdateAlbumAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--查看相册 -->
+	<bean name="/viewphotos" class="com.np.action.ViewPhotosAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--照片分页 -->
+	<bean name="/managephotopage" class="com.np.action.PhotoPageAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--添加照片 -->
+	<bean name="/addphoto" class="com.np.action.AddPhotoAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--删除相册 -->
+	<bean name="/delalbum" class="com.np.action.DelAlbumAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--删除照片 -->
+	<bean name="/delphoto" class="com.np.action.DelPhotoAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--进入修改相片信息界面 -->
+	<bean name="/viewphotoinfo" class="com.np.action.ViewPhotoInfoAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--修改相片信息 -->
+	<bean name="/updatephotoInfo" class="com.np.action.UpdatePhotoAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--查看单张图片 -->
+	<bean name="/viewphoto" class="com.np.action.ViewPhotoAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--删除后查看相册 -->
+	<bean name="/afterdel" class="com.np.action.AfterDelPhotoAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--设置相册封面 -->
+	<bean name="/changeCover" class="com.np.action.ChangeCoverAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--根据栏目查看相册 -->
+	<bean name="/viewalbumsk" class="com.np.action.ViewAlbumsAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--前台相册分页 -->
+	<bean name="/otheralbums" class="com.np.action.OtherAlbumsAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--进入相册 -->
+	<bean name="/viewalbumk" class="com.np.action.ViewAlbumUserAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--相片分页 -->
+	<bean name="/otherphotosa" class="com.np.action.OtherPhotosAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--查看照片 -->
+	<bean name="/photouser" class="com.np.action.ViewPhotoUserAction">
+		<property name="ns" ref="nService" />
+	</bean>
+	<!--进入我的相册 -->
+	<bean name="/myalbum" class="com.np.action.MyAlbumAction" />
+	<!--添加种类 -->
+	<bean name="/addchannel" class="com.np.action.AddChannelAction">
+		<property name="ns" ref="nService" />
+		<property name="as" ref="aService" />
+	</bean>
+	<!--前台拦截器 -->
+	<bean id="userInter" class="com.np.interceptor.UserInterceptor" />
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>/addalbum</value>
+				<value>/albumlist</value>
+				<value>/albumpage</value>
+				<value>/addalbum</value>
+				<value>/updatepass</value>
+				<value>/viewalbuminfo</value>
+				<value>/viewphotoinfo</value>
+				<value>/updatealbumInfo</value>
+				<value>/viewphotos</value>
+				<value>/managephotopage</value>
+				<value>/addphoto</value>
+				<value>/delalbum</value>
+				<value>/delphoto</value>
+				<value>/viewphoto</value>
+				<value>/afterdel</value>
+				<value>/changeCover</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>userInter</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+
+
+</beans>

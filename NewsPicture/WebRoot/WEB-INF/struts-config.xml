@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<form-beans>
+		<!--前台用户登录-->
+		<form-bean name="userLoginForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="username" type="java.lang.String"/>
+			<form-property name="password" type="java.lang.String"/>
+		</form-bean>
+		<!--后台管理员登录-->
+		<form-bean name="adminLoginForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="userName" type="java.lang.String"/>
+			<form-property name="pass" type="java.lang.String"/>
+		</form-bean>
+		<!--前台用户注册-->
+		<form-bean name="userRegForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="username" type="java.lang.String"/>
+			<form-property name="password" type="java.lang.String"/>
+			<form-property name="repass" type="java.lang.String"/>
+		</form-bean>
+		<!--检查用户名-->
+		<form-bean name="checkNameForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="userName" type="java.lang.String"/>
+		</form-bean>
+		<!--添加相册-->
+		<form-bean name="addAlbumForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="name" type="java.lang.String"/>
+			<form-property name="channel" type="java.lang.String"/>
+			<form-property name="keyword" type="java.lang.String"/>
+		</form-bean>
+		<!--修改相册信息-->
+		<form-bean name="updateAlbumForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="title" type="java.lang.String"/>
+			<form-property name="channel" type="java.lang.String"/>
+			<form-property name="keyword" type="java.lang.String"/>			
+			<form-property name="albumId" type="java.lang.String"/>			
+		</form-bean>
+		<!--相片分页-->
+		<form-bean name="photoPageForm" type="org.apache.struts.action.DynaActionForm">
+			<form-property name="albumId" type="java.lang.String"/>
+			<form-property name="currentPage" type="java.lang.String"/>
+		</form-bean>
+		<!--添加照片-->
+		<form-bean name="addPhotoForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="title" type="java.lang.String"/>
+			<form-property name="image" type="org.apache.struts.upload.FormFile"/>
+			<form-property name="keyword" type="java.lang.String"/>
+			<form-property name="albumId" type="java.lang.String"/>
+		</form-bean>
+		<!--修改相片信息-->
+		<form-bean name="updatePhotoForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="title" type="java.lang.String"/>
+			<form-property name="album" type="java.lang.String"/>
+			<form-property name="keyword" type="java.lang.String"/>			
+			<form-property name="photoId" type="java.lang.String"/>			
+		</form-bean>
+		<!--相册分页-->
+		<form-bean name="albumPageForm" type="org.apache.struts.action.DynaActionForm">
+			<form-property name="channelId" type="java.lang.String"/>
+			<form-property name="currentPage" type="java.lang.String"/>
+		</form-bean>
+		<!--修改密码-->
+		<form-bean name="updatePassForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="old" type="java.lang.String"/>
+			<form-property name="newPass" type="java.lang.String"/>
+			<form-property name="rePass" type="java.lang.String"/>
+		</form-bean>
+		<!--添加栏目-->
+		<form-bean name="addChannelForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="title" type="java.lang.String"/>
+		</form-bean>
+	</form-beans>
+	<!--key 引用资源文件中的属性 当系统抛出异常会在这里进行匹配 自上而下 按类型匹配  -->
+    <global-exceptions>
+            <exception key="bussiness.exception"  
+                       type="com.np.exception.NException"
+                       path="/WEB-INF/jsp/error.jsp"/>
+            <exception key="unknown.exception"  
+                       type="java.lang.Exception"
+                       path="/WEB-INF/jsp/error.jsp"/>  
+    </global-exceptions>
+
+	<action-mappings>
+		<action path="/tec" forward="/WEB-INF/jsp/tec_support.jsp"/>
+		<action path="/aboutus" forward="/WEB-INF/jsp/about_us.jsp"/>
+		<action path="/index" forward="/WEB-INF/jsp/info.do"/>
+		<action path="/info" scope="request">
+			<forward name="success" path="/WEB-INF/jsp/info.jsp"/>
+		</action>
+		<action path="/admin" forward="/WEB-INF/jsp/admin/login.jsp"/>
+		<!--进入注册页面-->
+		<action path="/reglink" forward="/WEB-INF/jsp/register.jsp"/>
+		<action path="/test" forward="/WEB-INF/jsp/main2.jsp"/>
+		<!--后台管理员登录-->
+		<action path="/adminLogin" name="adminLoginForm" scope="request" validate="true" input="/WEB-INF/jsp/admin/login.jsp">
+			<forward name="success" path="/WEB-INF/jsp/admin/admin_index.jsp"/>
+			<forward name="wrong" path="/WEB-INF/jsp/admin/login.jsp"/>
+		</action>
+		<!--进入我的相册-->
+		<action path="/myalbum" scope="request">
+			<forward name="success" path="/albumlist.do"/>
+			<forward name="nologin" path="/WEB-INF/jsp/memberLongin.jsp"/>
+		</action>
+		<!--获取相册-->
+		<!--前台客户登录-->
+		<action path="/userLogin" scope="request" name="userLoginForm" 
+		validate="true" input="/WEB-INF/jsp/memberLongin.jsp">
+			<forward name="success" path="/albumlist.do"/>
+			<forward name="wrong" path="/WEB-INF/jsp/memberLongin.jsp"/>
+		</action>
+		<!--客户注册-->
+		<action path="/userReg" scope="request" name="userRegForm" 
+		validate="true" input="/WEB-INF/jsp/register.jsp">
+			<forward name="success" path="/WEB-INF/jsp/memberLongin.jsp"/>
+			<forward name="have" path="/WEB-INF/jsp/register.jsp"/>
+		</action>
+		<!--检查用户名-->
+		<action path="/checkName" scope="request" name="checkNameForm"
+		validate="true" input="/WEB-INF/jsp/register.jsp">
+			<forward name="success" path="/WEB-INF/jsp/register.jsp"/>
+			<forward name="have" path="/WEB-INF/jsp/register.jsp"/>
+		</action>
+		<!--进入添加相册页面-->
+		<action path="/addAlbumLink" forward="/WEB-INF/jsp/add_album.jsp"/>
+		<!--浏览用户的相册-->
+		<action path="/albumlist" scope="request">
+			<forward name="success" path="/WEB-INF/jsp/manage_album_list.jsp"/>
+		</action>
+		<!--登录后相册分页-->
+		<action path="/albumpage" name="albumPageForm">
+			<forward name="success" path="/WEB-INF/jsp/manage_album_list.jsp"/>
+		</action>
+		<!--添加相册-->
+		<action path="/addalbum" name="addAlbumForm" validate="true" input="/WEB-INF/jsp/add_album.jsp">
+			<forward name="success" path="/albumlist.do"/>
+		</action>
+		<!--进入修改用户资料页面-->
+		<action path="/updateinfolink" forward="/WEB-INF/jsp/update_user_info.jsp"/>
+		<!--修改用户资料-->
+		<action path="/updateinfo" name="updateInfoForm" validate="true" input="/WEB-INF/jsp/update_user_info.jsp">
+			<forward name="success" path="/WEB-INF/jsp/update_user_info.jsp"/>
+		</action>
+		<!--进入修改密码页面-->
+		<action path="/updatepasslink" forward="/WEB-INF/jsp/update_user_pass.jsp"/>
+		<!--修改密码-->
+		<action path="/updatepass" name="updatePassForm" validate="true" input="/WEB-INF/jsp/update_user_pass.jsp">
+			<forward name="success" path="/logout.do"/>
+			<forward name="fail" path="/WEB-INF/jsp/update_user_pass.jsp"/>
+		</action>
+		<!--用户退出-->
+		<action path="/logout" type="com.np.action.UserLogoutAction">
+			<forward name="success" path="/WEB-INF/jsp/memberLongin.jsp"/>
+		</action>
+		<!--进入修改相册信息界面-->
+		<action path="/viewalbuminfo">
+			<forward name="success" path="/WEB-INF/jsp/update_album_info.jsp"/>
+			<forward name="noexist" path="/WEB-INF/jsp/albumlist.jsp"/>
+		</action>
+		<!--修改相册信息-->
+		<action path="/updatealbumInfo" name="updateAlbumForm" validate="true" input="/WEB-INF/jsp/update_album_info.jsp">
+			<forward name="success" path="/WEB-INF/jsp/update_album_info.jsp"/>
+			<forward name="noexist" path="/WEB-INF/jsp/update_album_info.jsp"/>
+		</action>
+		<!--查看相册-->
+		<action path="/viewphotos">
+			<forward name="success" path="/WEB-INF/jsp/main.jsp"/>
+		</action>
+		<!--查看相册-->
+		<action path="/afterdel">
+			<forward name="success" path="/WEB-INF/jsp/main.jsp"/>
+		</action>
+		<!--相片分页-->
+		<action path="/managephotopage" name="photoPageForm">
+			<forward name="success" path="/WEB-INF/jsp/main.jsp"/>
+			<forward name="noexist" path="/albumlist.do"/>
+		</action>
+		<!--进入添加相片页面-->
+		<action path="/addphotolink" forward="/WEB-INF/jsp/add_photo.jsp"/>
+		<!--添加相片-->
+		<action path="/addphoto" name="addPhotoForm" validate="true"
+		input="/WEB-INF/jsp/add_photo.jsp">
+			<forward name="success" path="/WEB-INF/jsp/add_photo.jsp"/>
+			<forward name="wrongType" path="/WEB-INF/jsp/add_photo.jsp"/>
+			<forward name="nofind" path="/WEB-INF/jsp/add_photo.jsp"/>
+			<forward name="tooBig" path="/WEB-INF/jsp/add_photo.jsp"/>
+		</action>
+		<!--删除相册-->
+		<action path="/delalbum">
+			<forward name="success" path="/albumlist.do"/>
+			<forward name="noexist" path="/albumlist.do"/>
+		</action>
+		<!--删除照片-->
+		<action path="/delphoto">
+			<forward name="success" path="/afterdel.do"/>
+			<forward name="noexist" path="/afterdel.do"/>
+		</action>
+		<!--进入修改相片信息界面-->
+		<action path="/viewphotoinfo">
+			<forward name="success" path="/WEB-INF/jsp/update_photo_info.jsp"/>
+			<forward name="noexist" path="/WEB-INF/jsp/albumlist.jsp"/>
+		</action>
+		<!--修改相册信息-->
+		<action path="/updatephotoInfo" name="updatePhotoForm" input="/WEB-INF/jsp/update_photo_info.jsp">
+			<forward name="success" path="/WEB-INF/jsp/update_photo_info.jsp"/>
+			<forward name="noexist" path="/WEB-INF/jsp/update_photo_info.jsp"/>
+		</action>
+		<!--查看单张图片-->
+		<action path="/viewphoto">
+			<forward name="success" path="/WEB-INF/jsp/display.jsp"/>
+			<forward name="noexist" path="/viewphotos.do"/>
+		</action>
+	
+		<!--设置相册封面-->
+		<action path="/changeCover">
+			<forward name="success" path="/afterdel.do"/>
+		</action>
+		<!--根据栏目查看相册-->
+		<action path="/viewalbumsk">
+			<forward name="get" path="/WEB-INF/jsp/view_album_list.jsp"/>
+		</action>
+		<!--相册分页-->
+		<action path="/otheralbums" name="albumPageForm">
+			<forward name="get" path="/WEB-INF/jsp/view_album_list.jsp"/>
+		</action>
+		<!--进入相册-->
+		<action path="/viewalbumk" scope="request">
+			<forward name="get" path="/WEB-INF/jsp/photos_list.jsp"/>
+		</action>
+		<!--相片分页-->
+		<action path="/otherphotosa" name="photoPageForm">
+			<forward name="success" path="/WEB-INF/jsp/photos_list.jsp"/>
+		</action>
+		<!--查看相片-->
+		<action path="/photouser" scope="request">
+			<forward name="success" path="/WEB-INF/jsp/user_display.jsp"/>
+		</action>
+		<!--进入栏目管理页面-->
+		<action path="/managechannel" forward="/WEB-INF/jsp/admin/admin_add_sort.jsp"/>
+		<!--添加栏目-->
+		<action path="/addchannel" scope="request" name="addChannelForm" validate="true" input="/WEB-INF/jsp/admin/admin_add_sort.jsp">
+			<forward name="success" path="/WEB-INF/jsp/admin/admin_add_sort.jsp"/>
+		</action>
+	</action-mappings>
+
+	<controller processorClass="org.springframework.web.struts.DelegatingRequestProcessor"/>
+
+	<message-resources parameter="mess/Mess"/>
+
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation" 
+			value="/WEB-INF/applicationContext.xml" />
+	</plug-in>
+
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml" />
+		<set-property property="stopOnFirstError" value="true" />
+	</plug-in>
+
+</struts-config>

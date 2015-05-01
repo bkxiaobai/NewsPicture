@@ -36,7 +36,7 @@ public interface NService {
 	void setCover(Integer albumId, Integer photoId) throws NException;
 
 	// 用户登录
-	boolean userLogin(String name, String pass) throws NException;
+	int checkUser(String username, String password) throws NException;
 
 	// 获取指定用户的相册列表
 	List<AlbumVO> getUserAlbums(int userId, int first, int pageSize)

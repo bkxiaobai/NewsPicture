@@ -21,8 +21,8 @@ public interface UserDao {
 	void delete(User user);
 
 	//根据用户名密码查找用户
-	User findByNameAndPass(String username, String password);
+	Integer findByNameAndPass(String username, String password);
 	
 	// 根据用户名查找用户
-	User findByName(String username);
+	Integer findByName(String name);
 }

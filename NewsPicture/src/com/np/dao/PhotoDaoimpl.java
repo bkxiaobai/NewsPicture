@@ -3,8 +3,8 @@ package com.np.dao;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.springframework.orm.hibernate4.HibernateCallback;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.np.dao.PhotoDao;
 import com.np.po.Album;
@@ -36,7 +36,7 @@ public class PhotoDaoimpl extends HibernateDaoSupport implements PhotoDao {
 	public Integer getCover(Album al, boolean flag) {
 		Object[] args = { al, flag };
 		List<?> result = getHibernateTemplate().find(
-				"from photo as ph where ph.album = ? and ph.cover = ?", args);
+				"from Photo as ph where ph.album = ? and ph.cover = ?", args);
 		if (result.size() == 1) {
 			Photo ph = (Photo) result.get(0);
 			return new Integer(ph.getId());
@@ -44,34 +44,36 @@ public class PhotoDaoimpl extends HibernateDaoSupport implements PhotoDao {
 		return null;
 	}
 
-	public List<Photo> getPhotos(final Album al, final int first,
-			final int pageSize) {
+	public List<Photo> getPhotos(final Album al, final int first, final int pageSize)
+	{
 		@SuppressWarnings("unchecked")
-		List<Photo> result = (List<Photo>) getHibernateTemplate().execute(
-				new HibernateCallback<Object>() {
-					public Object doInHibernate(Session session) {
-						List<?> tmp = session
-								.createQuery(
-										"from photo as ph where ph.album = :al")
-								.setEntity("al", al).setFirstResult(first)
-								.setMaxResults(pageSize).list();
-						return tmp;
-					}
-				});
+		List<Photo> result = (List<Photo>)getHibernateTemplate().execute(
+		new HibernateCallback()
+		{
+			public Object doInHibernate(Session session)
+			{
+				List<?> tmp = session.createQuery("from Photo as ph where ph.album = :al")
+								  .setEntity("al", al)
+								  .setFirstResult(first)
+								  .setMaxResults(pageSize)
+								  .list();
+				return tmp;
+			}
+		});
 		return result;
 	}
 
 	public int getCount(Album al) {
 		Object[] args = { al };
 		List<?> result = getHibernateTemplate().find(
-				"from photo as ph where ph.album = ?", args);
+				"from Photo as ph where ph.album = ?", args);
 		return result.size();
 	}
 
 	public Photo getCoverPhoto(Album al, boolean flag) {
 		Object[] args = { al, flag };
 		List<?> result = getHibernateTemplate().find(
-				"from photo as ph where ph.album = ? and ph.cover = ?", args);
+				"from Photo as ph where ph.album = ? and ph.cover = ?", args);
 		if (result.size() == 1) {
 			return (Photo) result.get(0);
 		} else {

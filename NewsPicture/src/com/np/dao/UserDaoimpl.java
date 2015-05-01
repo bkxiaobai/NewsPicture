@@ -1,6 +1,9 @@
 package com.np.dao;
 
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import java.util.List;
+
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
 import com.np.po.User;
 
 public class UserDaoimpl extends HibernateDaoSupport implements UserDao {
@@ -26,16 +29,25 @@ public class UserDaoimpl extends HibernateDaoSupport implements UserDao {
 				getHibernateTemplate().get(User.class, new Integer(id)));
 	}
 
-	public User findByNameAndPass(String username, String password) {
-		User user = (User) getHibernateTemplate().find(
-				"from user as u where u.username = ? and u.password = ?",
-				username, password);
-		return user;
+	public Integer findByNameAndPass(String username, String password) {
+		String[] args = { username, password };
+		List<?> result = getHibernateTemplate().find(
+				"from User as u where u.username = ? and u.password = ?", args);
+		if (result.size() == 1) {
+			User u = (User) result.get(0);
+			return new Integer(u.getId());
+		}
+		return null;
 	}
 
-	public User findByName(String username) {
-		User user = (User) getHibernateTemplate().find(
-				"from user u where u.username = ?", username);
-		return user;
+	public Integer findByName(String username) {
+		String[] args = { username };
+		List<?> result = getHibernateTemplate().find(
+				"from User as u where u.username = ?", args);
+		if (result.size() == 1) {
+			User u = (User) result.get(0);
+			return new Integer(u.getId());
+		}
+		return null;
 	}
 }

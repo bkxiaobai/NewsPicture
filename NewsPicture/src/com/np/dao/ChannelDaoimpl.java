@@ -3,8 +3,8 @@ package com.np.dao;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.springframework.orm.hibernate4.HibernateCallback;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.np.po.Album;
 import com.np.po.Channel;
 
@@ -21,7 +21,7 @@ public class ChannelDaoimpl extends HibernateDaoSupport implements ChannelDao {
 	public void update(Channel channel) {
 		getHibernateTemplate().update(channel);
 	}
-	
+
 	public void delete(int id) {
 		getHibernateTemplate().delete(
 				getHibernateTemplate().get(Channel.class, new Integer(id)));
@@ -35,7 +35,7 @@ public class ChannelDaoimpl extends HibernateDaoSupport implements ChannelDao {
 			final int pageSize) {
 		@SuppressWarnings("unchecked")
 		List<Album> result = (List<Album>) getHibernateTemplate().execute(
-				new HibernateCallback<Object>() {
+				new HibernateCallback() {
 					public Object doInHibernate(Session session) {
 						List<?> tmp = session
 								.createQuery(

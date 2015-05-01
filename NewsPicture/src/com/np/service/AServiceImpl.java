@@ -1,7 +1,8 @@
 package com.np.service;
 
-import com.np.service.AService;
 import com.np.exception.NException;
+import com.np.vo.AdminVO;
+import com.np.service.AService;
 import com.np.dao.AdminDao;
 import com.np.dao.ChannelDao;
 import com.np.po.Admin;
@@ -20,13 +21,14 @@ public class AServiceImpl implements AService {
 		this.cd = cd;
 	}
 
-	public boolean adminlogin(String name, String pass) throws NException {
+	public AdminVO checkAdmin(String name, String pass) throws NException {
 		try {
-			Admin admin = ad.findByNameAndPass(name, pass);
+			Integer adminId = ad.findByNameAndPass(name, pass);
+			Admin admin = ad.get(adminId);
 			if (admin == null) {
-				return false;
+				return null;
 			}
-			return true;
+			return fillAdminVO(admin);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new NException("登录异常");
@@ -55,22 +57,20 @@ public class AServiceImpl implements AService {
 		}
 	}
 
-	public void deleteChannel(int channelId)throws NException
-	{
-		//在配置文件Album.hbm.xml中将Photos 属性中加上了关闭延迟加载 不然的话会报一个异常
-		try
-		{
-			cd.delete(channelId);		
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace(); 			
+	public void deleteChannel(int channelId) throws NException {
+		// 在配置文件Album.hbm.xml中将Photos 属性中加上了关闭延迟加载 不然的话会报一个异常
+		try {
+			cd.delete(channelId);
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new NException("删除栏目异常");
 		}
 	}
-	/**
-	 * private AdminVO fillAdminVO(Admin admin)throws Exception { AdminVO avo =
-	 * new AdminVO(admin.getId(), admin.getName(), admin.getPass()); return avo;
-	 * }
-	 **/
+
+	private AdminVO fillAdminVO(Admin admin) throws Exception {
+		AdminVO avo = new AdminVO(admin.getId(), admin.getName(),
+				admin.getPass());
+		return avo;
+	}
+
 }

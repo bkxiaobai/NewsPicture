@@ -1,9 +1,11 @@
 package com.np.dao;
 
+import java.util.List;
+
 import com.np.dao.AdminDao;
 import com.np.po.Admin;
 
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class AdminDaoImpl extends HibernateDaoSupport implements AdminDao {
 	public Admin get(Integer id) {
@@ -27,11 +29,15 @@ public class AdminDaoImpl extends HibernateDaoSupport implements AdminDao {
 		getHibernateTemplate().delete(admin);
 	}
 
-	public Admin findByNameAndPass(String name, String pass) {
-		Admin admin = (Admin) getHibernateTemplate().find(
-				"from admin as a where a.name = ? and a.pass = ?", name,
-				pass);
-		return admin;
+	public Integer findByNameAndPass(String name, String pass) {
+		String[] args = { name, pass };
+		List<?> result = getHibernateTemplate().find(
+				"from Admin as a where a.name = ? and a.pass = ?", args);
+		if (result.size() == 1) {
+			Admin a = (Admin) result.get(0);
+			return new Integer(a.getId());
+		}
+		return null;
 	}
 
 }
