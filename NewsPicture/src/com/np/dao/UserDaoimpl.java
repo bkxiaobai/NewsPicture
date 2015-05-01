@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+
 import com.np.po.User;
 
 public class UserDaoimpl extends HibernateDaoSupport implements UserDao {
@@ -38,7 +39,8 @@ public class UserDaoimpl extends HibernateDaoSupport implements UserDao {
 			return new Integer(u.getId());
 		}
 		return null;
-	}
+}
+
 
 	public Integer findByName(String username) {
 		String[] args = { username };
@@ -49,5 +51,5 @@ public class UserDaoimpl extends HibernateDaoSupport implements UserDao {
 			return new Integer(u.getId());
 		}
 		return null;
-	}
+}
 }

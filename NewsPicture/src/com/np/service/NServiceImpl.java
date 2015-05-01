@@ -1,22 +1,23 @@
 package com.np.service;
 
-import com.np.service.NService;
-import com.np.dao.PhotoDao;
-import com.np.dao.UserDao;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 import com.np.dao.AlbumDao;
 import com.np.dao.ChannelDao;
+import com.np.dao.PhotoDao;
+import com.np.dao.UserDao;
+import com.np.exception.NException;
+import com.np.po.Album;
+import com.np.po.Channel;
 import com.np.po.Photo;
 import com.np.po.User;
-import com.np.po.Channel;
-import com.np.po.Album;
-import com.np.vo.PhotoVO;
-import com.np.vo.UserVO;
 import com.np.vo.AlbumVO;
 import com.np.vo.ChannelVO;
-import com.np.exception.NException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
+import com.np.vo.PhotoVO;
+import com.np.vo.UserVO;
 
 public class NServiceImpl implements NService {
 	// 业务逻辑组件持久化访问依赖的PhotoDao组件
@@ -61,12 +62,12 @@ public class NServiceImpl implements NService {
 	 * @param channelId
 	 *            相册所属的相册分类ID
 	 */
-	public void addAlbum(String title, String keyword, String date, long times,
+	public void addAlbum(String title, String keyword, Date date, long times,
 			Integer userId, Integer channelId) throws NException {
 		try {
 			User user = ud.get(userId);
 			Channel channel = cd.get(channelId);
-			Album album = new Album(title, keyword, date, times, user, channel);
+			Album album = new Album(title, keyword, date, times, userId, channelId);
 			ad.save(album);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -534,10 +535,18 @@ public class NServiceImpl implements NService {
 	 * @param albumId
 	 *            该相片需要添加到的相册ID
 	 */
+<<<<<<< HEAD
 	public void addPhoto(String title, String keyword, long times,
 			String picUrl, String bigPicUrl, String smallPicUrl, String date,
 			boolean cover, Integer albumId) throws NException {
 		try {
+=======
+	public void addPhoto(String title, String keyword, long times, String picUrl, String bigPicUrl, String smallPicUrl, 
+		Date date, boolean cover, Integer albumId)throws NException
+	{
+		try
+		{
+>>>>>>> branch 'master' of https://github.com/bkxiaobai/NewsPicture.git
 			Album album = ad.get(albumId);
 			Photo photo = new Photo(title, keyword, times, picUrl, bigPicUrl,
 					smallPicUrl, date, cover, album);

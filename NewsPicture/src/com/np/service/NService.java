@@ -1,16 +1,18 @@
 package com.np.service;
 
-import com.np.vo.AlbumVO;
-import com.np.vo.PhotoVO;
-import com.np.vo.ChannelVO;
-import com.np.vo.UserVO;
-import com.np.exception.NException;
+import java.util.Date;
 import java.util.List;
+
+import com.np.exception.NException;
+import com.np.vo.AlbumVO;
+import com.np.vo.ChannelVO;
+import com.np.vo.PhotoVO;
+import com.np.vo.UserVO;
 
 public interface NService {
 
 	// 添加相册
-	void addAlbum(String title,String keyword, String date, long times, Integer userId,
+	void addAlbum(String title,String keyword, Date date, long times, Integer userId,
 			Integer channelId) throws NException;
 
 	// 跟新相册
@@ -76,7 +78,7 @@ public interface NService {
 
 	// 增加一张相片
 	void addPhoto(String title, String keyword, long times, String picUrl,
-			String bigPicUrl, String smallPicUrl, String date, boolean cover,
+			String bigPicUrl, String smallPicUrl, Date date, boolean cover,
 			Integer albumId) throws NException;
 
 	// 判断指定ID对应的相片是否存在。

@@ -1,34 +1,59 @@
 package com.np.po;
 
 import java.io.Serializable;
+import java.util.Date;
 
+//标准注解
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity(name = "photo")
 public class Photo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	// 图片id
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	// 该图片的名称
+	@Column(length = 255, nullable = false)
 	private String title;
 	// 该图片的关键词属性
+	@Column(length = 255, nullable = false)
 	private String keyword;
 	// 图片查看次数
+	@Column()
 	private long times;
 	// 图片绝对地址
+	@Column(length = 255, nullable = false)
 	private String picUrl;
 	// 大图保存路径
+	@Column(length = 255, nullable = false)
 	private String bigPicUrl;
 	// 缩略图保存路径
+	@Column(length = 255, nullable = false)
 	private String smallPicUrl;
 	// 添加图片时间
-	private String date;
+	@Temporal(value = TemporalType.DATE)
+	private Date date;
 	// 是否为封面
+	@Column()
 	private boolean cover;
 	// 保存该图片所属的图集
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "album_id", nullable = false)
 	private Album album;
 
-	// 无参数的构造器
 	public Photo(String title, String keyword, long times, String picUrl,
-			String bigPicUrl, String smallPicUrl, String date, boolean cover,
+			String bigPicUrl, String smallPicUrl, Date date, boolean cover,
 			Album album) {
 		setTitle(title);
 		setKeyword(keyword);
@@ -97,11 +122,11 @@ public class Photo implements Serializable {
 		this.smallPicUrl = smallPicUrl;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
